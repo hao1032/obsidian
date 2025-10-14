@@ -1,3 +1,11 @@
 {
-  "promptDelete": false
+  "promptDelete": false,
+  "readableLineLength": false,
+  "showLineNumber": false,
+  "showIndentGuide": true,
+  "rightToLeft": false,
+  "newFileLocation": "current",
+  "useMarkdownLinks": true,
+  "attachmentFolderPath": "./attachments",
+  "showInlineTitle": true
 }
