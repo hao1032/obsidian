@@ -13,15 +13,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "company/工作日报.md",
+                "file": "temp/temp.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "工作日报"
+              "title": "temp"
+            }
+          },
+          {
+            "id": "78fed681070f6989",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Patch Google Photos Using ReVanced CLI.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Patch Google Photos Using ReVanced CLI"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -193,10 +208,19 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "b4666e36c6d2eb3b",
+  "active": "78fed681070f6989",
   "lastOpenFiles": [
-    "欢迎.md",
     "company/工作日报.md",
+    "temp/attachments/img_v3_02r3_c6bc7baf-68b4-4b0b-b2d6-8daeb70c80ag.jpg",
+    "temp/attachments/img_v3_02r3_c56dd58f-fd11-45ea-becf-a1516c72fcfg.jpg",
+    "temp/attachments/img_v3_02r3_c56dd58f-fd11-45ea-becf-a1516c72fcfg的副本.jpg",
+    "temp/attachments/Pasted image 20251015183730.jpg",
+    "temp/temp.md",
+    "Patch Google Photos Using ReVanced CLI.md",
+    "temp/attachments",
+    "temp",
+    "conflict-files-obsidian-git.md",
+    "欢迎.md",
     "company"
   ]
 }
