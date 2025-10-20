@@ -166,9 +166,7 @@
       "daily-notes:打开/创建今天的日记": true,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
-      "bases:创建新数据库": false,
-      "obsidian-git:Open Git source control": false,
-      "remotely-save:Remotely Save": false
+      "bases:创建新数据库": false
     }
   },
   "active": "c075aff6c8448284",
