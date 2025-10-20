@@ -1,0 +1,1 @@
+![](Pasted%20image%2020251015183730.jpg)![](img_v3_02r3_c56dd58f-fd11-45ea-becf-a1516c72fcfg.jpg)![](img_v3_02r3_c6bc7baf-68b4-4b0b-b2d6-8daeb70c80ag.jpg)
