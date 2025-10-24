@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "company/工作日报.md",
+                "file": "company/clsf 文件命令.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "工作日报"
+              "title": "clsf 文件命令"
             }
           }
         ],
@@ -175,6 +175,20 @@
               "icon": "git-pull-request",
               "title": "Source Control"
             }
+          },
+          {
+            "id": "eda2071f174f2abe",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
           }
         ],
         "currentTab": 4
@@ -187,8 +201,6 @@
     "hiddenItems": {
       "remotely-save:Remotely Save": false,
       "switcher:打开快速切换": false,
-      "graph:查看关系图谱": true,
-      "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": true,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
@@ -198,8 +210,8 @@
   },
   "active": "23f92f7226774858",
   "lastOpenFiles": [
-    "company/clsf 文件命令.md",
     "company/工作日报.md",
+    "company/clsf 文件命令.md",
     "Patch Google Photos Using ReVanced CLI.md",
     "temp/attachments/img_v3_02r3_c56dd58f-fd11-45ea-becf-a1516c72fcfg的副本.jpg",
     "temp/temp.md",
