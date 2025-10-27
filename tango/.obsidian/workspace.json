@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "company/clsf 文件命令.md",
+                "file": "company/工作日报.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "clsf 文件命令"
+              "title": "工作日报"
             }
           }
         ],
@@ -210,8 +210,8 @@
   },
   "active": "23f92f7226774858",
   "lastOpenFiles": [
-    "company/工作日报.md",
     "company/clsf 文件命令.md",
+    "company/工作日报.md",
     "Patch Google Photos Using ReVanced CLI.md",
     "temp/attachments/img_v3_02r3_c56dd58f-fd11-45ea-becf-a1516c72fcfg的副本.jpg",
     "temp/temp.md",
