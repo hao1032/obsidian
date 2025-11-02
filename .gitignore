@@ -1,6 +1,9 @@
 # 包含敏感数据
 remotely-save/
 
+# 云函数测试数据
+serverless-lbepan/test_data.py
+
 .venv
 venv
 .idea
