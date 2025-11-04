@@ -1,0 +1,9 @@
+site_name: My Docs
+theme:
+  name: material
+  language: zh
+  palette:
+    primary: teal
+    accent: orange
+    favicon: assets/images/favicon.png
+    logo: assets/images/logo.png

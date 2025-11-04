@@ -1,3 +1,7 @@
 {
-  "readableLineLength": false
+  "readableLineLength": false,
+  "attachmentFolderPath": "./attachments",
+  "useMarkdownLinks": true,
+  "newFileLocation": "current",
+  "alwaysUpdateLinks": true
 }
