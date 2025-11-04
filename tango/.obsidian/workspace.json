@@ -180,7 +180,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 701.5
+    "width": 725.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -193,7 +193,7 @@
       "obsidian-git:Open Git source control": true
     }
   },
-  "active": "5f78120335c002bd",
+  "active": "b5490a850dd5b0c1",
   "lastOpenFiles": [
     "company/工作日报.md",
     "Todo.md",
