@@ -1,4 +1,7 @@
-site_name: My Docs
+site_name: 萝卜真题
+copyright: |
+    Copyright &copy; 2025 萝卜真题 | 本站资源来源于网络,如有侵权,请联系我们,我们将尽快处理 | 
+    <a href="http://beian.miit.gov.cn" target="_blank" rel="noopener">皖ICP备2025097063号-1</a>
 theme:
   name: material
   language: zh
@@ -7,3 +10,9 @@ theme:
     accent: orange
     favicon: assets/images/favicon.png
     logo: assets/images/logo.png
+
+plugins:
+  - search
+
+extra:
+  generator: false
