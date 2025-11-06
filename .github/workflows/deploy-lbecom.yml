@@ -78,30 +78,27 @@ jobs:
         mkdocs build --site-dir public --verbose
       working-directory: ./lbecom
 
-    - name: Configure AWS CLI for Tencent COS
+    - name: Install CosCmd CLI (推荐方案)
       run: |
-        pip install awscli
-        mkdir -p ~/.aws
-        echo "[default]
-        region = ${{ env.COS_REGION }}
-        output = json" > ~/.aws/config
-        echo "[default]
-        aws_access_key_id = ${{ secrets.COS_SECRET_ID }}
-        aws_secret_access_key = ${{ secrets.COS_SECRET_KEY }}" > ~/.aws/credentials
+        pip install coscmd
 
-    - name: Upload to Tencent COS
+    - name: Upload to Tencent COS using CosCmd
       run: |
+        # 配置coscmd
+        coscmd config -a ${{ secrets.COS_SECRET_ID }} -s ${{ secrets.COS_SECRET_KEY }} -b ${{ env.COS_BUCKET }} -r ${{ env.COS_REGION }}
+        
         # 检查是否需要清理目标目录
         if ${{ inputs.clean_deploy == 'true' }}; then
-          echo "🧹 清理COS目标目录: ${{ env.COS_BUCKET }}/${{ env.COS_PATH }}"
-          aws --endpoint-url https://cos.${{ env.COS_REGION }}.myqcloud.com s3 rm s3://${{ env.COS_BUCKET }}/${{ env.COS_PATH }} --recursive
+          echo "🧹 清理COS目标目录: ${{ env.COS_PATH }}"
+          coscmd delete -r -f ${{ env.COS_PATH }} || echo "目录不存在或已清空"
         fi
-        
+
         echo "🚀 上传文件到COS..."
-        aws --endpoint-url https://cos.${{ env.COS_REGION }}.myqcloud.com s3 sync ./lbecom/public/ s3://${{ env.COS_BUCKET }}/${{ env.COS_PATH }}/
+        coscmd upload -r ./lbecom/public/ ${{ env.COS_PATH }} --delete
         
         echo "✅ 部署完成！"
-        echo "访问地址: https://${{ env.COS_BUCKET }}.cos-website.${{ env.COS_REGION }}.myqcloud.com/${{ env.COS_PATH }}"
+        echo "访问地址: https://${{ env.COS_BUCKET }}.cos-website.${{ env.COS_REGION }}.myqcloud.com"
+        echo "访问地址: https://www.luoboedu.com"
       working-directory: ./
 
     - name: Deploy Notification
