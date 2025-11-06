@@ -11,8 +11,19 @@ theme:
     favicon: assets/images/favicon.png
     logo: assets/images/logo.png
 
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+
 plugins:
   - search
 
 extra:
-  generator: false
+  generator: false  # 去除底部 mkdocs 推广链接
+
+# 排除不需要发布的目录和文件
+exclude_docs: |
+  drafts/    # 草稿
+  internal/  # 内部文档

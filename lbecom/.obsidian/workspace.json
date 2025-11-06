@@ -1,20 +1,24 @@
 {
   "main": {
-    "id": "34b2e6e177383b36",
+    "id": "b3ed9af76d8e072a",
     "type": "split",
     "children": [
       {
-        "id": "630a6988f569df53",
+        "id": "b7a6f67c60164e5f",
         "type": "tabs",
         "children": [
           {
-            "id": "c075aff6c8448284",
+            "id": "50dfbe14b6f97131",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "docs/index.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "index"
             }
           }
         ]
@@ -23,15 +27,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "0ba12e2d25bd6fdc",
+    "id": "2b0e87f8de7082e5",
     "type": "split",
     "children": [
       {
-        "id": "9879bebec746a1c2",
+        "id": "8a013af21af88aa8",
         "type": "tabs",
         "children": [
           {
-            "id": "b6d01d2b0185e807",
+            "id": "f9a64abcc320affc",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -44,7 +48,7 @@
             }
           },
           {
-            "id": "27af78ba37fba613",
+            "id": "73f736dfb7329197",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -61,7 +65,7 @@
             }
           },
           {
-            "id": "57ea6fa63887003c",
+            "id": "ea51061c48d60e73",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -77,20 +81,19 @@
     "width": 300
   },
   "right": {
-    "id": "11244c9c299c62a3",
+    "id": "5bf7c249bc380242",
     "type": "split",
     "children": [
       {
-        "id": "8d2490cba1991530",
+        "id": "7e9de638814c9218",
         "type": "tabs",
         "children": [
           {
-            "id": "a8e4c279fabf0a24",
+            "id": "22fad1928f353b9c",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,25 +103,24 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克) 的反向链接列表"
+              "title": "反向链接"
             }
           },
           {
-            "id": "25aaa358d3962097",
+            "id": "aec1392f4d0fee96",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克) 的出链列表"
+              "title": "出链"
             }
           },
           {
-            "id": "1b7c036829dd17c8",
+            "id": "bdef42fcfec4e3d4",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -133,62 +135,51 @@
             }
           },
           {
-            "id": "0d66d2ed1aafd2ad",
+            "id": "79bbe1ec6152d271",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克) 的大纲"
-            }
-          },
-          {
-            "id": "e49df8bb8dcd59bc",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "title": "大纲"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
-      "obsidian-git:Open Git source control": false,
-      "remotely-save:Remotely Save": false,
       "switcher:打开快速切换": false,
-      "graph:查看关系图谱": true,
+      "graph:查看关系图谱": false,
       "canvas:新建白板": false,
-      "daily-notes:打开/创建今天的日记": true,
+      "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
-      "bases:创建新数据库": false
+      "bases:创建新数据库": false,
+      "obsidian-git:Open Git source control": false
     }
   },
-  "active": "b6d01d2b0185e807",
+  "active": "50dfbe14b6f97131",
   "lastOpenFiles": [
-    "lbecom 站点.md",
-    "attachments/Pasted image 20251104224700.png",
-    "UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
-    "竞赛总览.md",
-    "attachments/Pasted image 20251106004457.png",
-    "pan-serverless.md",
-    "attachments",
-    "conflict-files-obsidian-git.md",
-    "Pasted image 20251104224411.png",
-    "未命名",
-    "欢迎.md"
+    "docs/英国BPhO/index.md",
+    "internal/lbecom 站点.md",
+    "docs/index.md",
+    "internal/竞赛总览.md",
+    "internal/UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
+    "internal/pan-serverless.md",
+    "internal/attachments/Pasted image 20251106004457.png",
+    "internal/attachments/Pasted image 20251104224700.png",
+    "internal/attachments",
+    "internal",
+    "docs/英国BPhO/attachments/Pasted image 20251106221454.png",
+    "docs/英国BPhO/attachments"
   ]
 }

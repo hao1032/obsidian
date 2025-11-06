@@ -1,0 +1,76 @@
+name: lbecom MkDocs Deploy
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'lbecom/**'
+      - '.github/workflows/deploy-lbecom.yml'
+
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'lbecom/**'
+
+  # 手动触发：随时可以点击运行
+  workflow_dispatch:
+    inputs:
+      clean_deploy:
+        description: '是否清理COS目标目录'
+        required: false
+        default: false
+        type: boolean
+      deploy_message:
+        description: '部署说明'
+        required: false
+        type: string
+
+env:
+  PYTHON_VERSION: '3.13'
+  TZ: Asia/Shanghai # 设置当前环境时区
+
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Sparse checkout lbecom directory
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+        sparse-checkout: |
+          lbecom/
+          .github/workflows/
+        sparse-checkout-cone-mode: false
+
+    - name: Show directory structure
+      run: |
+        echo "📁 工作目录结构:"
+        ls -la
+        echo ""
+        echo "📁 lbecom目录内容:"
+        ls -la lbecom/ || echo "lbecom目录不存在"
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+        cache-dependency-path: 'lbecom/requirements.txt'
+
+    - name: Install dependencies
+      run: |
+        if [ ! -f "lbecom/requirements.txt" ]; then
+          echo "❌ lbecom/requirements.txt 不存在"
+          exit 1
+        fi
+        
+        echo "📦 安装依赖..."
+        pip install -r lbecom/requirements.txt
+      working-directory: ./
+
+    - name: Build MkDocs site
+      run: |
+        mkdocs build --site-dir public --verbose
+      working-directory: ./lbecom

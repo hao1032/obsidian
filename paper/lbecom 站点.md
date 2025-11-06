@@ -9,7 +9,7 @@ https://squidfunk.github.io/mkdocs-material/
 mkdocs serve --livereload
 ```
 
-腾讯 cos 绑定域名访问报错
+**腾讯 cos 绑定域名访问报错**
 ```log
 <Error>
 <Code>NoSuchBucket</Code>
@@ -20,5 +20,5 @@ mkdocs serve --livereload
 </Error>
 ```
 ![](Pasted%20image%2020251106004457.png)
-
+等待绑定生效
 

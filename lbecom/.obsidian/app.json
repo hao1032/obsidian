@@ -1,0 +1,9 @@
+{
+  "newFileLocation": "current",
+  "useMarkdownLinks": true,
+  "attachmentFolderPath": "./attachments",
+  "userIgnoreFilters": [
+    "__pycache__/"
+  ],
+  "readableLineLength": false
+}
