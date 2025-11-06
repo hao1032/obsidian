@@ -6,19 +6,37 @@
       {
         "id": "b7a6f67c60164e5f",
         "type": "tabs",
+        "dimension": 76.42215568862275,
         "children": [
           {
             "id": "50dfbe14b6f97131",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
+            }
+          }
+        ]
+      },
+      {
+        "id": "e2401c2624a5f83b",
+        "type": "tabs",
+        "dimension": 23.57784431137725,
+        "children": [
+          {
+            "id": "58f539d7070f0ed8",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
               "state": {
-                "file": "docs/index.md",
-                "mode": "source",
-                "source": false
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
-              "icon": "lucide-file",
-              "title": "index"
+              "icon": "lucide-list",
+              "title": "大纲"
             }
           }
         ]
@@ -135,7 +153,7 @@
             }
           },
           {
-            "id": "79bbe1ec6152d271",
+            "id": "351fc6b930b108cd",
             "type": "leaf",
             "state": {
               "type": "outline",
@@ -147,13 +165,23 @@
               "icon": "lucide-list",
               "title": "大纲"
             }
+          },
+          {
+            "id": "4f089a44bfd76553",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -170,8 +198,8 @@
   "active": "50dfbe14b6f97131",
   "lastOpenFiles": [
     "docs/英国BPhO/index.md",
-    "internal/lbecom 站点.md",
     "docs/index.md",
+    "internal/lbecom 站点.md",
     "internal/竞赛总览.md",
     "internal/UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
     "internal/pan-serverless.md",
