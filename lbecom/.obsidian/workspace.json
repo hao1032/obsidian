@@ -1,20 +1,24 @@
 {
   "main": {
-    "id": "b3ed9af76d8e072a",
+    "id": "7187f550a3a9669f",
     "type": "split",
     "children": [
       {
-        "id": "370f186b60fd3cba",
+        "id": "c4ee1e2ac8e355ee",
         "type": "tabs",
         "children": [
           {
-            "id": "c05ef79ee968a23d",
+            "id": "0680ca5a6dfcfdf2",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "docs/index.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "index"
             }
           }
         ]
@@ -23,15 +27,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "2b0e87f8de7082e5",
+    "id": "c0c42b7daff834ae",
     "type": "split",
     "children": [
       {
-        "id": "8a013af21af88aa8",
+        "id": "4a935acfbdb3a6b0",
         "type": "tabs",
         "children": [
           {
-            "id": "f9a64abcc320affc",
+            "id": "e9c83e36acce2c57",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -44,7 +48,7 @@
             }
           },
           {
-            "id": "73f736dfb7329197",
+            "id": "8cea926b9802738c",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -61,7 +65,7 @@
             }
           },
           {
-            "id": "ea51061c48d60e73",
+            "id": "86f600e97cb924b0",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -77,19 +81,20 @@
     "width": 300
   },
   "right": {
-    "id": "5bf7c249bc380242",
+    "id": "23357d0947b82ecc",
     "type": "split",
     "children": [
       {
-        "id": "7e9de638814c9218",
+        "id": "50c651713b9b7408",
         "type": "tabs",
         "children": [
           {
-            "id": "22fad1928f353b9c",
+            "id": "72f2d78a558ed84e",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
+                "file": "docs/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,24 +104,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "反向链接"
+              "title": "index 的反向链接列表"
             }
           },
           {
-            "id": "aec1392f4d0fee96",
+            "id": "019f7f63f937fd89",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "docs/index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "出链"
+              "title": "index 的出链列表"
             }
           },
           {
-            "id": "bdef42fcfec4e3d4",
+            "id": "4cf3319fa79c83af",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -131,35 +137,26 @@
             }
           },
           {
-            "id": "351fc6b930b108cd",
+            "id": "9b7b79f0892a52a9",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
+                "file": "docs/index.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
-            }
-          },
-          {
-            "id": "4f089a44bfd76553",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "title": "index 的大纲"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -169,27 +166,23 @@
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
-      "bases:创建新数据库": false,
-      "obsidian-git:Open Git source control": false
+      "bases:创建新数据库": false
     }
   },
-  "active": "4f089a44bfd76553",
+  "active": "0680ca5a6dfcfdf2",
   "lastOpenFiles": [
-    "docs/BPhO/attachments/Pasted image 20251106221454.png",
     "docs/BPhO/index.md",
-    "docs/BPhO/attachments",
-    "docs/BPhO",
-    "docs/英国BPhO/index.md",
-    "docs/index.md",
-    "internal/lbecom 站点.md",
+    "requirements.txt",
+    "internal/attachments/Pasted image 20251106004457.png",
+    "internal/attachments/Pasted image 20251104224700.png",
     "internal/竞赛总览.md",
     "internal/UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
     "internal/pan-serverless.md",
-    "internal/attachments/Pasted image 20251106004457.png",
-    "internal/attachments/Pasted image 20251104224700.png",
+    "internal/lbecom 站点.md",
     "internal/attachments",
     "internal",
-    "docs/英国BPhO/attachments/Pasted image 20251106221454.png",
-    "docs/英国BPhO/attachments"
+    "docs/BPhO/attachments/Pasted image 20251106221454.png",
+    "docs/BPhO/attachments",
+    "docs/BPhO"
   ]
 }
