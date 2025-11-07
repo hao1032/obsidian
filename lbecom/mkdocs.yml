@@ -23,6 +23,9 @@ plugins:
 extra:
   generator: false  # 去除底部 mkdocs 推广链接
 
+extra_javascript:
+  - assets/javascripts/pan-list.js
+
 # 排除不需要发布的目录和文件
 exclude_docs: |
   drafts/    # 草稿

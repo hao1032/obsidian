@@ -1,3 +1,9 @@
+# 请求
+
+```shell
+curl "https://lbepan.luoboedu.com?path=/"
+```
+
 # 网盘接口文档
 https://pan.baidu.com/union/doc/nksg0sat9
 

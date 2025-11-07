@@ -4,39 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "b7a6f67c60164e5f",
+        "id": "370f186b60fd3cba",
         "type": "tabs",
-        "dimension": 76.42215568862275,
         "children": [
           {
-            "id": "50dfbe14b6f97131",
+            "id": "c05ef79ee968a23d",
             "type": "leaf",
             "state": {
-              "type": "graph",
+              "type": "empty",
               "state": {},
-              "icon": "lucide-git-fork",
-              "title": "关系图谱"
-            }
-          }
-        ]
-      },
-      {
-        "id": "e2401c2624a5f83b",
-        "type": "tabs",
-        "dimension": 23.57784431137725,
-        "children": [
-          {
-            "id": "58f539d7070f0ed8",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "followCursor": false,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-list",
-              "title": "大纲"
+              "icon": "lucide-file",
+              "title": "新标签页"
             }
           }
         ]
