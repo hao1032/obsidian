@@ -1,17 +1,11 @@
-# Welcome to MkDocs
+---
+title: 首页
+---
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+欢迎来到**萝卜真题**，我们汇集了英国BPhO、美国AMC、澳洲AMC、袋鼠数学等权威赛事的完整真题库，配备详细解析，是您备考路上最可靠的伙伴。
 
-## Commands
+无论您目标是冲击竞赛奖项，还是系统提升学科能力，这里都能为您提供最全面、最专业的学习资源。我们相信，高质量的练习和深入的理解是成功的关键。
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+从英美到澳洲，从物理到数学，我们致力于打破资源壁垒，让每位有志学子都能平等获取高质量的竞赛学习材料。无论您身在何处，都能通过竞赛题库接轨国际顶尖教育资源。
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+海量真题库，覆盖主流国际竞赛历年真题，持续更新最新赛事题目。

@@ -6,6 +6,7 @@ https://squidfunk.github.io/mkdocs-material/
 
 启动命令
 ```shell
+cd ..
 mkdocs serve --livereload
 ```
 

@@ -4,6 +4,9 @@ remotely-save/
 # 云函数测试数据
 serverless-lbepan/test_data.py
 
+# lbecom 网站数据
+lbecom/site/
+
 .venv
 venv
 .idea
