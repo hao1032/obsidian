@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block content %}
 <div id="path-header">
     当前路径: <b id="current-path-display">/</b>
@@ -111,42 +112,34 @@
     #tree-container li.expanded > .nested {
         display: block;
     }
+
+    /* 辅助性的颜色类（未修改您原有的CSS） */
+    .icon-pdf { color: #E53935; }
+    .icon-img { color: #4CAF50; }
+    .icon-vid { color: #9C27B0; }
+    .icon-code { color: #FF9800; }
+    .icon-txt { color: #757575; }
+    .icon-folder { color: orange; } /* 文件夹图标颜色 */
+
 </style>
 
 <script lang="javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-        const treeContainer = document.getElementById('tree-container');
-        const urlParams = new URLSearchParams(window.location.search);
+    // 立即执行函数表达式 (IIFE) 封装所有常量和辅助函数
+    (function() {
 
-        const initialPath = urlParams.get('path') || '/';
+        // --- 1. 局部常量和辅助函数定义 (仅在 IIFE 内部声明和使用) ---
 
-        const pathDisplay = document.getElementById('current-path-display');
-        if (pathDisplay) {
-            pathDisplay.textContent = initialPath;
-        }
-
-        const rootUl = document.createElement('ul');
-        treeContainer.appendChild(rootUl);
-
-        // --- 核心：定义 SVG 字符串 ( Font Awesome Solid Icons ) ---
         const SVG_ICONS = {
-            // Font Awesome Solid - folder.svg (文件夹图标)
             'folder-regular': '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200"><path d="M42.688 106.688H404.48l85.312 106.624h491.52V896H42.624V106.688zM128 192v618.688h768v-512H448.832L363.52 192H128z" p-id="17028"></path></svg>',
-
-            // Font Awesome Solid - file.svg (默认文件图标/文本)
             'file-regular': '<svg viewBox="0 0 384 512"><path d="M368 152.8V48c0-13.3-10.7-24-24-24s-24 10.7-24 24V144c0 13.3 10.7 24 24 24h112c13.3 0 24-10.7 24-24V152.8zm-208 0V48H189.1c11.3 0 22.3 4.4 30.3 12.4l70.9 70.9c8 8 12.4 18.9 12.4 30.3V464c0 13.3-10.7 24-24 24H112c-13.3 0-24-10.7-24-24V48z"/></svg>',
-
-            // --- 常用文件类型 ---
-
-            // PDF: file-pdf
             'file-pdf': '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200"><path d="M743.483311 0H109.01234A53.988777 53.988777 0 0 0 55.023562 53.988777v916.009591a53.988777 53.988777 0 0 0 53.988778 53.988778h805.97532a53.988777 53.988777 0 0 0 53.988778-53.988778V211.083265z m-10.913446 102.462987l149.201843 139.702389H732.569865zM137.292176 941.718532V82.268613h513.009076v242.165376h236.419427V941.718532z" p-id="18073"></path><path d="M298.60293 437.86184h-83.258408v237.332094h57.09956v-78.785051h27.752802c50.132436 0 93.837637-24.886256 93.837637-81.343092-0.051418-58.693514-43.113895-77.203952-95.431591-77.203951z m-1.285447 113.569249h-24.873401v-68.591456h23.292301c27.431441 0 42.741115 8.303988 42.741115 32.226158 0 23.279447-13.394359 36.365298-41.147161 36.365298zM502.757635 437.86184H434.487541v237.332094h71.458003c69.221325 0 117.065666-37.277965 117.065666-119.932212s-47.84434-117.399882-120.253575-117.399882z m-3.50927 191.40307h-7.712683V483.160995h7.712683c38.280614 0 65.390693 15.631037 65.390693 72.100727s-27.110079 74.003189-65.390693 74.003188zM667.024918 675.193934h57.099559v-90.585456h81.02173v-47.535833h-81.02173v-51.996334h94.428943v-47.201617H667.024918v237.31924z" p-id="18074"></path></svg>',
-
-            // 图片: file-image
             'file-image': '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200"><path d="M85.312 85.312h853.376v853.376H85.312V85.312z m85.376 768h579.648L384 487.04l-213.312 213.376v152.96z m682.624-17.664V170.688H170.688v408.96L384 366.336l469.312 469.312z m-179.328-526.336a42.688 42.688 0 1 0 0 85.376 42.688 42.688 0 0 0 0-85.376z m-128 42.688a128 128 0 1 1 256 0 128 128 0 0 1-256 0z" p-id="8717"></path></svg>',
-
-            // 视频: file-video
             'file-video': '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200"><path d="M960 192l-28.384 0c-16.8 0-32.928 6.624-44.928 18.432l-86.688 85.504 0-39.936c0-53.024-43.008-96-96-96l-608 0c-52.928 0-96 43.04-96 96l0 512c0 52.992 42.976 96 96 96l608 0c52.992 0 96-43.008 96-96l0-39.072 86.688 85.504c12 11.808 28.128 18.432 44.928 18.432l28.384 0c35.328 0 64-28.64 64-64l0-512.864c0-35.36-28.672-64-64-64zM96 800c-17.664 0-32-14.368-32-32l0-512c0-17.696 14.304-32 32-32l608 0c17.632 0 32 14.336 32 32l0 512c0 17.632-14.368 32-32 32l-608 0zM960 768.864l-32 0-128-128 0-0.864-32-32 0-192 160-160 32 0 0 512.864z" fill="#444444" p-id="10699"></path></svg>',
         };
+
+        function renderSvg(key) {
+             return SVG_ICONS[key] || `<span style="color:red;">[${key}?]</span>`;
+        }
 
         function getFileIconInfo(filename) {
             const ext = filename.split('.').pop().toLowerCase();
@@ -155,46 +148,30 @@
 
             switch (ext) {
                 case 'pdf': iconKey = 'file-pdf'; colorClass = 'icon-pdf'; break;
-                // 图片
                 case 'jpg':
                 case 'jpeg':
                 case 'png':
                 case 'gif':
                 case 'webp': iconKey = 'file-image'; colorClass = 'icon-img'; break;
-                // 视频
                 case 'mp4':
                 case 'mov':
                 case 'avi':
                 case 'mkv': iconKey = 'file-video'; colorClass = 'icon-vid'; break;
-                // 压缩包
-                case 'zip':
-                case 'rar':
-                case '7z':
-                // 文档
-                case 'doc':
-                case 'docx':
-                // 表格
-                case 'xls':
-                case 'xlsx':
-                // 代码/文本
-                case 'js':
-                case 'ts':
-                case 'html':
-                case 'css':
-                case 'json':
-                case 'py':
-                case 'txt':
-                case 'md': iconKey = 'file-regular'; colorClass = 'icon-txt'; break;
+                default:
+                    const codeExtensions = ['js', 'ts', 'html', 'css', 'json', 'py'];
+                    if (codeExtensions.includes(ext)) {
+                        iconKey = 'file-regular';
+                        colorClass = 'icon-code';
+                    } else {
+                        iconKey = 'file-regular';
+                        colorClass = 'icon-txt';
+                    }
+                    break;
             }
             return { iconKey, colorClass };
         }
 
-        function renderSvg(key) {
-             // 渲染 SVG 字符串，如果没有找到则返回一个错误标记
-             return SVG_ICONS[key] || `<span style="color:red;">[${key}?]</span>`;
-        }
-        // ----------------------------------------
-
+        // --- 2. 异步数据加载函数 ---
         function loadDirectory(path, containerUl) {
             const apiUrl = `https://lbepan.luoboedu.com?path=${encodeURIComponent(path)}`;
 
@@ -222,7 +199,6 @@
 
                             const folderIconHtml = renderSvg('folder-regular');
 
-                            // 文件夹图标：使用 .icon-folder 和 .twemoji 类包裹 SVG
                             li.innerHTML = `
                                 <span class="toggle">+</span>
                                 <span class="name">
@@ -238,7 +214,6 @@
                             li.classList.add('file');
                             const fileIconHtml = renderSvg(iconInfo.iconKey);
 
-                            // 文件图标：使用 .icon, 颜色类 和 .twemoji 类包裹 SVG
                             li.innerHTML = `
                                 <span class="icon ${iconInfo.colorClass} twemoji">
                                     ${fileIconHtml}
@@ -256,14 +231,18 @@
                 });
         }
 
-        treeContainer.addEventListener('click', function(e) {
+        // --- 3. 共享事件处理器 ---
+        function handleTreeClick(e) {
+            const treeContainer = e.currentTarget;
 
             // 1. 处理 "复制链接"
             const copyLink = e.target.closest('.copy-link');
             if (copyLink) {
                 const li = copyLink.closest('li.folder');
+                if (!li) return;
                 const path = li.dataset.path;
 
+                // 复制链接逻辑不变
                 const url = new URL(window.location.pathname, window.location.origin);
                 url.searchParams.set('path', path);
                 const shareUrl = url.toString();
@@ -287,14 +266,7 @@
             if (!targetElement) return;
 
             const li = targetElement.closest('li');
-
-            if (!li || !li.classList.contains('folder')) {
-                return;
-            }
-
-            if (!targetElement.classList.contains('toggle') && !targetElement.classList.contains('name')) {
-                return;
-            }
+            if (!li || !li.classList.contains('folder')) return;
 
             const toggle = li.querySelector('.toggle');
             const nestedUl = li.querySelector('.nested');
@@ -312,10 +284,56 @@
             } else {
                 toggle.textContent = '+';
             }
-        });
+        }
 
-        loadDirectory(initialPath, rootUl);
+        // --- 4. 核心初始化函数 (每次导航都会运行) ---
+        function initializeTree() {
+            const treeContainer = document.getElementById('tree-container');
 
-    });
+            if (!treeContainer) {
+                return;
+            }
+
+            // 确保事件只绑定一次
+            if (treeContainer.dataset.eventsBound !== 'true') {
+                treeContainer.addEventListener('click', handleTreeClick);
+                treeContainer.dataset.eventsBound = 'true';
+            }
+
+            // --- 内容加载逻辑 (每次都需要运行) ---
+
+            // 1. 清理并准备根元素
+            treeContainer.innerHTML = '';
+            const rootUl = document.createElement('ul');
+            treeContainer.appendChild(rootUl);
+
+            // 2. 获取路径
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialPath = urlParams.get('path') || '/';
+
+            const pathDisplay = document.getElementById('current-path-display');
+            if (pathDisplay) {
+                pathDisplay.textContent = initialPath;
+            }
+
+            // 3. 首次加载根目录
+            loadDirectory(initialPath, rootUl);
+        }
+
+        // --- 5. 启动点：监听 MkDocs Material 的 document$ ---
+
+        // MkDocs Material 会在内容替换完成后触发 document$
+        if (typeof document$ !== 'undefined' && typeof document$.subscribe === 'function') {
+            document$.subscribe(function() {
+                // 在内容加载和 DOM 替换完成后运行初始化
+                initializeTree();
+            });
+        } else {
+            // 如果 document$ 不存在 (非 MkDocs 环境或加载失败)，使用 DOMContentLoaded 作为回退
+            // console.warn("document$ not found. Using DOMContentLoaded.");
+            document.addEventListener('DOMContentLoaded', initializeTree);
+        }
+
+    })(); // 立即执行函数结束
 </script>
 {% endblock %}
