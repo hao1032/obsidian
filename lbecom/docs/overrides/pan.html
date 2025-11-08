@@ -25,7 +25,7 @@
     }
 
     #tree-container ul ul {
-        margin-left: 10px;
+        margin-left: 5px;
     }
 
     #tree-container li {
@@ -53,15 +53,6 @@
         height: 1.2em;
         vertical-align: middle;
         margin-right: 3px;
-    }
-    .file .icon {
-        color: #666; /* 默认颜色 */
-    }
-    /* SVG 元素自身的样式 */
-    .file .icon svg, .icon-folder svg {
-        width: 100%;
-        height: 100%;
-        fill: currentColor; /* 确保 SVG 使用父容器的颜色 */
     }
 
     .file .size {
@@ -190,7 +181,7 @@
                             li.innerHTML = `
                                 <span class="toggle">+</span>
                                 <span class="name">
-                                    <span class="icon-folder twemoji">${folderIconHtml}</span>
+                                    <span class="icon icon-folder twemoji">${folderIconHtml}</span>
                                     ${item.name || ''}
                                 </span>
                                 <span class="copy-link" title="复制链接">🔗</span>
