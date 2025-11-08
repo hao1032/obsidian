@@ -37,7 +37,7 @@ class Pan(object):
         return f"{size_bytes:.1f} {unit}"
 
     def list(self, path):
-        params = {'app_id': PCS_APP_ID, 'method': 'list', 'path': path}
+        params = {'app_id': PCS_APP_ID, 'method': 'list', 'path': path, 'order': 'asc'}
         data = self.__send(f'{PCS_URL}/file', params)
 
         results = []
