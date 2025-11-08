@@ -18,6 +18,6 @@ for key, morsel in cookie.items():
 
 
 api = BaiduPCSApi(bduss=bduss, cookies=cookies_dict)
-l = api.list('/')
+l = api.list('/重新整理的竞赛真题/US-美国/AMC 美国数学竞赛/AMC8/中英版')
 for item in l:
     print(item)

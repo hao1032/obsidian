@@ -5,6 +5,8 @@ copyright: |
 theme:
   name: material
   language: zh
+  custom_dir: docs/overrides
+
   palette:
     primary: teal
     accent: orange
@@ -17,14 +19,8 @@ theme:
     - navigation.tracking
     - navigation.tabs
 
-plugins:
-  - search
-
 extra:
   generator: false  # 去除底部 mkdocs 推广链接
-
-extra_javascript:
-  - assets/javascripts/pan-list.js
 
 # 排除不需要发布的目录和文件
 exclude_docs: |

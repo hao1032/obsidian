@@ -16,13 +16,14 @@ def main_handler(event, context):
     except Exception as e:
         print(e)
 
-    return json.dumps(data, ensure_ascii=False, indent=4)
+    return data
 
 
 if __name__ == "__main__":
     if os.path.exists('test_data.py'):
         from test_data import get_data
         e, c = get_data()
-        main_handler(e, c)
+        a = main_handler(e, c)
+        print(a)
     else:
         raise Exception("test_data.py not found")
