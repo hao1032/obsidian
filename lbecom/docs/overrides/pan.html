@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div id="path-header">
-    当前路径: <b id="current-path-display">/</b>
-</div>
+<h1 id="current-path-display">/</h1>
 
 <div class="tree-wrapper">
     <div id="tree-container">
@@ -18,16 +16,6 @@
     .tree-wrapper {
         min-width: min-content;
         padding-bottom: 20px;
-    }
-
-    /* 路径标题样式 */
-    #path-header {
-        font-size: 1.1em;
-        font-family: monospace;
-        padding: 10px 5px;
-        background-color: #f4f4f4;
-        border-bottom: 1px solid #ddd;
-        margin-bottom: 10px;
     }
 
     /* 基础树形样式：设置一个非常小的缩进值 */
