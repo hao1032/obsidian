@@ -6,30 +6,45 @@
     当前路径: <b id="current-path-display">/</b>
 </div>
 
-<div id="tree-container">
+<div class="tree-wrapper">
+    <div id="tree-container">
     </div>
+</div>
 
 <style>
-    /* ... 您的所有树形样式 ... */
+    /* 允许水平滚动 */
+    body {
+        overflow-x: auto;
+    }
+    .tree-wrapper {
+        min-width: min-content;
+        padding-bottom: 20px;
+    }
 
-    /* 新增：路径标题样式 */
+    /* 路径标题样式 */
     #path-header {
         font-size: 1.1em;
-        font-family: monospace; /* 等宽字体更适合显示路径 */
+        font-family: monospace;
         padding: 10px 5px;
         background-color: #f4f4f4;
         border-bottom: 1px solid #ddd;
         margin-bottom: 10px;
     }
 
-    /* 基础树形样式 */
+    /* 基础树形样式：设置一个非常小的缩进值 */
     #tree-container ul {
         list-style-type: none;
-        padding-left: 20px;
+        margin-left: 0px;
     }
+
+    #tree-container ul ul {
+        margin-left: 10px;
+    }
+
     #tree-container li {
-        padding: 4px 0;
         position: relative;
+        white-space: nowrap;
+        margin-left: 0px;
     }
 
     /* 文件夹和文件的特定样式 */
@@ -39,12 +54,10 @@
     .folder .toggle {
         font-weight: bold;
         display: inline-block;
-        width: 1.2em;
         user-select: none;
     }
     .file .icon {
         display: inline-block;
-        width: 1.2em;
         color: #666;
     }
     .file .size {
@@ -76,7 +89,7 @@
         visibility: visible;
     }
 
-    /* 展开/折叠的核心逻辑 (已修复) */
+    /* 展开/折叠的核心逻辑 */
     #tree-container li > .nested {
         display: none;
     }
@@ -87,27 +100,20 @@
 
 <script lang="javascript">
     document.addEventListener('DOMContentLoaded', function() {
+        // --- JavaScript 代码保持不变 ---
         const treeContainer = document.getElementById('tree-container');
         const urlParams = new URLSearchParams(window.location.search);
 
-        // 这现在是此页面的 "根" 路径
         const initialPath = urlParams.get('path') || '/';
 
-        // --- 新增：更新路径标题 ---
         const pathDisplay = document.getElementById('current-path-display');
         if (pathDisplay) {
             pathDisplay.textContent = initialPath;
         }
-        // --- 结束 ---
 
         const rootUl = document.createElement('ul');
         treeContainer.appendChild(rootUl);
 
-        /**
-         * 核心函数：加载并渲染指定路径的目录内容
-         * @param {string} path - 要加载的目录路径
-         * @param {HTMLElement} containerUl - 用于填充内容的 <ul> 元素
-         */
         function loadDirectory(path, containerUl) {
             const apiUrl = `https://lbepan.luoboedu.com?path=${encodeURIComponent(path)}`;
 
@@ -116,12 +122,7 @@
             }
 
             fetch(apiUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
                     containerUl.innerHTML = '';
 
@@ -133,10 +134,8 @@
                     data.list.forEach(item => {
                         const li = document.createElement('li');
 
-                        // 假设 'is_dir: true'
                         if (item.is_dir) {
                             li.classList.add('folder');
-                            // 关键：路径是基于 *当前* 路径构建的
                             const newPath = path.endsWith('/') ? `${path}${item.name}` : `${path}/${item.name}`;
                             li.dataset.path = newPath;
 
@@ -163,10 +162,8 @@
                 });
         }
 
-        // --- 事件委托 (无需更改) ---
         treeContainer.addEventListener('click', function(e) {
 
-            // 1. 处理 "复制链接"
             const copyLink = e.target.closest('.copy-link');
             if (copyLink) {
                 const li = copyLink.closest('li.folder');
@@ -187,10 +184,9 @@
                     console.error('无法复制链接: ', err);
                     alert('复制失败!');
                 });
-                return; // 结束
+                return;
             }
 
-            // 2. 处理 "折叠/展开"
             const targetElement = e.target.closest('.toggle, .name');
             if (!targetElement) return;
 
@@ -207,7 +203,7 @@
                 toggle.textContent = '−';
                 if (!nestedUl.dataset.loaded) {
                     const path = li.dataset.path;
-                    loadDirectory(path, nestedUl); // 动态加载子目录
+                    loadDirectory(path, nestedUl);
                     nestedUl.dataset.loaded = 'true';
                 }
             } else {
@@ -215,9 +211,6 @@
             }
         });
 
-        // --- 关键修改 ---
-        // 移除了所有复杂的 "auto-expand" 逻辑
-        // 只需根据 initialPath 加载 "根" 目录
         loadDirectory(initialPath, rootUl);
 
     });
