@@ -5,13 +5,16 @@ copyright: |
 theme:
   name: material
   language: zh
-  custom_dir: docs/overrides
+  custom_dir: overrides
+  font: false
+  favicon: assets/favicon.png
+
+  icon:
+    logo: fontawesome/solid/carrot
 
   palette:
     primary: teal
     accent: orange
-    favicon: assets/images/favicon.png
-    logo: assets/images/logo.png
 
   features:
     - navigation.instant
