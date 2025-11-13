@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 256.5
   },
   "right": {
     "id": "23357d0947b82ecc",
@@ -166,7 +166,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 476.5
+    "width": 400.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -180,11 +180,11 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "72f2d78a558ed84e",
+  "active": "df93229d760d07f1",
   "lastOpenFiles": [
-    "docs/BPhO/index.md",
     "internal/竞赛时间.md",
     "docs/calendar.md",
+    "docs/BPhO/index.md",
     "internal/UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
     "internal/pan-serverless.md",
     "docs/assets/favicon.png",
