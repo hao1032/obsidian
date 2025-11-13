@@ -5,6 +5,7 @@ on:
     branches: [ main, master ]
     paths:
       - 'lbecom/**'
+      - '!lbecom/.obsidian/**'  # 使用!表示排除
       - '.github/workflows/deploy-lbecom.yml'
 
   pull_request:
