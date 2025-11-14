@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "c4ee1e2ac8e355ee",
+        "id": "58c070db46751118",
         "type": "tabs",
         "children": [
           {
-            "id": "0680ca5a6dfcfdf2",
+            "id": "df93229d760d07f1",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "internal/pan-serverless.md",
+                "file": "docs/calendar.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "pan-serverless"
+              "title": "calendar"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 256.5
   },
   "right": {
     "id": "23357d0947b82ecc",
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/index.md",
+                "file": "docs/calendar.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "index 的反向链接列表"
+              "title": "calendar 的反向链接列表"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/index.md",
+                "file": "docs/calendar.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "index 的出链列表"
+              "title": "calendar 的出链列表"
             }
           },
           {
@@ -142,21 +142,31 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/index.md",
+                "file": "docs/calendar.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "index 的大纲"
+              "title": "calendar 的大纲"
+            }
+          },
+          {
+            "id": "c6ae3c075ba65f52",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 400.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -170,21 +180,31 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "0680ca5a6dfcfdf2",
+  "active": "df93229d760d07f1",
   "lastOpenFiles": [
-    "docs/index.md",
+    "internal/竞赛时间.md",
+    "docs/calendar.md",
     "docs/BPhO/index.md",
+    "internal/UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
+    "internal/pan-serverless.md",
+    "docs/assets/favicon.png",
+    "docs/assets",
+    "overrides/pan.html",
+    "overrides",
+    "assets/javascripts/pan.js",
+    "assets/images/logo.png",
+    "assets/images/favicon.png",
+    "assets/javascripts",
+    "assets/images",
+    "assets",
+    "docs/index.md",
     "requirements.txt",
     "internal/attachments/Pasted image 20251106004457.png",
     "internal/attachments/Pasted image 20251104224700.png",
     "internal/竞赛总览.md",
-    "internal/UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
-    "internal/pan-serverless.md",
     "internal/lbecom 站点.md",
     "internal/attachments",
     "internal",
-    "docs/BPhO/attachments/Pasted image 20251106221454.png",
-    "docs/BPhO/attachments",
-    "docs/BPhO"
+    "docs/BPhO/attachments/Pasted image 20251106221454.png"
   ]
 }
