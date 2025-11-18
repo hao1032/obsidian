@@ -94,7 +94,7 @@ def on_page_markdown(markdown, page, config, files):
     # 检查是否存在 'enable_my_hook' 且为 True
     if page.meta.get('enable_hook', False):
         # 从 Markdown 文件的 Meta-data (YAML Front Matter) 中获取列名
-        column_to_remove = page.meta.get('column_to_remove')
+        column_to_remove = page.meta.get('column_to_remove').strip()
         if column_to_remove:
             # 如果 Meta-data 中指定了要删除的列名
             print(f"ℹ️ 正在处理文件: {page.file.src_path}。从 Meta-data 读取到要删除的列: '{column_to_remove}'")
