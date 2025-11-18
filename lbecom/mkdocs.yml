@@ -22,6 +22,10 @@ theme:
     - navigation.tracking
     - navigation.tabs
 
+# 启用 hooks 文件
+hooks:
+  - hooks/md.py
+
 extra:
   generator: false  # 去除底部 mkdocs 推广链接
 
@@ -29,3 +33,9 @@ extra:
 exclude_docs: |
   drafts/    # 草稿
   internal/  # 内部文档
+
+watch:
+  - hooks/md.py
+
+
+
