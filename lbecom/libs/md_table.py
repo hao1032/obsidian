@@ -1,7 +1,7 @@
 import re
 
 
-class MarkdownTableEditor:
+class Editor:
     """
     用于解析、编辑和重新生成 Markdown 表格的类。
 
@@ -281,7 +281,7 @@ if __name__ == '__main__':
     """
 
     # 1. 初始化编辑器
-    editor = MarkdownTableEditor(source_md)
+    editor = Editor(source_md)
     print("--- 原始 Markdown ---")
     print(source_md)
     print("-" * 30)
