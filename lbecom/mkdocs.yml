@@ -36,6 +36,7 @@ exclude_docs: |
 
 watch:
   - hooks/md.py
+  - overrides
 
 
 

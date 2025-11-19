@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ super() }}
+
+<style>
+/* 自定义日期天数标签的样式 */
+.date-diff-label {
+    /* 基础样式：让它看起来像一个小的、圆角的标签 */
+    display: inline-block;
+    padding: 0.1em 0.5em;
+    margin-left: 8px;
+    font-size: 0.75em; /* 比日期文本小 */
+    font-weight: 500;
+    line-height: 1;
+    border-radius: 4px; /* 轻微圆角 */
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* 状态 - 未来日期 (使用主题强调色) */
+.date-diff-label[data-status="future"] {
+    color: var(--md-default-fg-color); /* 文本颜色使用默认前景深色 */
+    background-color: var(--md-accent-fg-color); /* 背景使用主题强调色，例如绿色或蓝色 */
+}
+
+/* 状态 - 今天 (使用警告/黄色) */
+.date-diff-label[data-status="today"] {
+    color: var(--md-default-bg-color); /* 文本颜色使用默认背景浅色 */
+    background-color: var(--md-typeset-color); /* 背景使用主题警告色 */
+}
+
+/* 状态 - 过去日期 (使用中性/灰色) */
+.date-diff-label[data-status="past"] {
+    color: var(--md-default-fg-color--light); /* 文本颜色使用浅色前景色 */
+    background-color: var(--md-typeset-table-color); /* 背景使用表格边框/分割线的颜色，看起来更柔和 */
+}
+
+/* ----------------------------------------------------- */
+/* 2. 媒体查询：手机/小屏幕样式 (标签在日期下面) */
+/* ----------------------------------------------------- */
+/* Material for MkDocs 默认的移动设备断点通常小于 768px */
+@media screen and (max-width: 767px) {
+    .date-diff-label {
+        /* 强制换行：使其独占一行 */
+        display: block;
+
+        /* 移除水平间距，实现左对齐 */
+        margin-left: 0;
+
+        /* 增加垂直间距，与日期分隔开 */
+        margin-top: 4px;
+
+        /* 如果希望标签居中或右对齐，可以调整此处的 margin-left 和 margin-right */
+    }
+}
+
+
+/* ======================================= */
+/* 3. 颜色状态 (保持不变) */
+/* ======================================= */
+.date-diff-label[data-status="future"] {
+    color: var(--md-default-fg-color);
+    background-color: var(--md-accent-fg-color);
+}
+
+.date-diff-label[data-status="today"] {
+    color: var(--md-default-bg-color);
+    background-color: var(--md-typeset-color);
+}
+
+.date-diff-label[data-status="past"] {
+    color: var(--md-default-fg-color--light);
+    background-color: var(--md-typeset-table-color);
+}
+</style>
+
+<script lang="javascript">
+/**
+ * 格式化时间差，自动选择单位 (天/周/月/年)
+ * 依赖于当前时间：2025年11月19日
+ */
+function formatTimeDifference(diffDays) {
+    const absDays = Math.abs(diffDays);
+
+    if (absDays === 0) {
+        return { label: '今天', status: 'today' };
+    }
+
+    const direction = diffDays > 0 ? '后' : '前';
+    let label = '';
+    let status = diffDays > 0 ? 'future' : 'past';
+
+    if (absDays < 7) {
+        // 7 天以内：显示天
+        label = `${absDays} 天${direction}`;
+    } else if (absDays < 30) {
+        // 7 到 30 天：显示周
+        const weeks = Math.round(absDays / 7);
+        if (weeks === 0) {
+            label = `${absDays} 天${direction}`;
+        } else {
+            label = `${weeks} 周${direction}`;
+        }
+    } else {
+        // 超过 30 天：显示月 (以 30 天近似)
+        const months = Math.round(absDays / 30);
+
+        // 超过 12 个月 (365天)，显示年
+        if (absDays >= 365) {
+            const years = Math.round(absDays / 365);
+            label = `${years} 年${direction}`;
+        } else if (months === 0) {
+             const weeks = Math.round(absDays / 7);
+             label = `${weeks} 周${direction}`;
+        } else {
+             label = `${months} 个月${direction}`;
+        }
+    }
+
+    return { label: label, status: status };
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  // 匹配 YYYY-MM-DD 格式，使用全局匹配 /g
+  const dateRegex = /(\d{4}-\d{2}-\d{2})/g;
+  // 查找页面中所有表格的单元格
+  const cells = document.querySelectorAll("article table td");
+
+  cells.forEach(cell => {
+    // 如果单元格的 HTML 内容中包含日期格式
+    if (cell.innerHTML.match(dateRegex)) {
+
+      // 使用 replace 方法和回调函数来处理所有匹配项
+      cell.innerHTML = cell.innerHTML.replace(dateRegex, (match) => {
+        // match 是捕获到的日期字符串，例如 "2025-01-12"
+        const dateString = match;
+
+        const targetDate = new Date(dateString);
+        const today = new Date();
+
+        // 重置时间部分，只比较日期
+        targetDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+
+        // 计算天数差
+        const diffTime = targetDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        // 调用格式化函数
+        const { label, status } = formatTimeDifference(diffDays);
+
+        // 构建要替换的 HTML 字符串：[原日期] + [带样式和状态的标签]
+        return `${dateString}<span class="date-diff-label" data-status="${status}">${label}</span>`;
+      });
+    }
+  });
+});
+</script>
+{% endblock %}

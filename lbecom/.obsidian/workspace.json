@@ -182,6 +182,8 @@
   },
   "active": "df93229d760d07f1",
   "lastOpenFiles": [
+    "overrides/calendar.html",
+    "assets/javascripts/table-date.js",
     "hooks/__pycache__/md.cpython-310.pyc",
     "hooks/__pycache__",
     "hooks/md.py",
@@ -191,8 +193,6 @@
     "plugins/build/bdist.macosx-10.9-universal2/wheel/custom_plugin-0.1.dist-info/top_level.txt",
     "plugins/build/bdist.macosx-10.9-universal2/wheel/custom_plugin-0.1.dist-info/entry_points.txt",
     "plugins/build/bdist.macosx-10.9-universal2/wheel/custom_plugin-0.1.dist-info/WHEEL",
-    "plugins/build/bdist.macosx-10.9-universal2/wheel/custom_plugin-0.1.dist-info/METADATA",
-    "plugins/build/bdist.macosx-10.9-universal2/wheel/custom_plugin-0.1.dist-info",
     "internal/lbecom 站点.md",
     "docs/calendar.md",
     "internal/竞赛时间.md",
