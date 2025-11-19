@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "company/工作日报.md",
+                "file": "company/使用的软件.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "工作日报"
+              "title": "使用的软件"
             }
           },
           {
@@ -194,7 +194,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 725.5
+    "width": 439.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -209,9 +209,9 @@
   },
   "active": "5f78120335c002bd",
   "lastOpenFiles": [
+    "company/工作日报.md",
     "company/clsf 文件命令.md",
     "conflict-files-obsidian-git.md",
-    "company/工作日报.md",
     "company/使用的软件.md",
     "Todo.md",
     "clash.md",
