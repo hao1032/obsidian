@@ -10,6 +10,11 @@ cd ..
 mkdocs serve --livereload
 ```
 
+```shell
+cd ..
+watchmedo auto-restart -d hooks -p "*.py" --recursive -- mkdocs serve --livereload
+```
+
 **腾讯 cos 绑定域名访问报错**
 ```log
 <Error>
