@@ -10,3 +10,4 @@ lbecom/site/
 .venv
 venv
 .idea
+.env
