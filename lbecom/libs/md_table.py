@@ -168,7 +168,7 @@ class Editor:
             if row and row[0] == row_header:  # 假设第一列是行头
                 # 检查索引是否越界
                 if col_index < len(row):
-                    return row[col_index]
+                    return row[col_index].strip()
                 else:
                     return ''  # 单元格为空
         return None  # 行头不存在

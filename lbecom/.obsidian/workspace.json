@@ -182,6 +182,7 @@
   },
   "active": "df93229d760d07f1",
   "lastOpenFiles": [
+    "libs/__pycache__/llm.cpython-310.pyc",
     "libs/llm.py",
     "libs/__pycache__/md_table.cpython-310.pyc",
     "libs/__pycache__",
@@ -194,7 +195,6 @@
     "未命名.base",
     "未命名.md",
     "overrides/calendar.html",
-    "assets/javascripts/table-date.js",
     "internal/lbecom 站点.md",
     "internal/竞赛时间.md",
     "docs/BPhO/index.md",

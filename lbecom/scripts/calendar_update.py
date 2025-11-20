@@ -1,12 +1,19 @@
 import os
+from lbecom.libs.llm import llm
 from pathlib import Path
 import requests
 from lbecom.libs import md_table
 
-def get_asdan_time(id_):
+cache = {}
+
+def get_test_time(id_, name):
     url = f'https://secure.seedasdan.com/hk/project/wx/detail/{id_}'
-    data = requests.get(url).json()
-    print(data)
+    if id_ not in cache:
+        cache[id_] = requests.get(url).json()
+        print( url, cache[id_])
+    if 'Round 1' in name:
+        return llm.test_time(name, cache[id_]['data']['moduleList'])
+    return llm.test_time(name, cache[id_])
 
 
 if __name__ == '__main__':
@@ -20,9 +27,21 @@ if __name__ == '__main__':
 
     for row_header in headers:
         id_ = editor.get_cell_value(table, row_header, 'id')
-        time = editor.get_cell_value(table, row_header, 'time')
-        if not (row_header and id_):
+        update = editor.get_cell_value(table, row_header, 'update')
+
+        if not row_header or not id_:
             continue
-        print(row_header, id_, time)
-        get_asdan_time(id_)
+
+        if row_header != 'BPhO Round 1':
+            continue
+
+        next_registration_deadline = editor.get_cell_value(table, row_header, '下次报名截止')
+        next_test_date = editor.get_cell_value(table, row_header, '下次考试')
+
+
+
+
+        print(row_header, id_, update)
+        r = get_test_time(id_, row_header)
+        print(r)
         break
