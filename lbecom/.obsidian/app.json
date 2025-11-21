@@ -1,4 +1,6 @@
 {
   "readableLineLength": false,
-  "newFileLocation": "current"
+  "newFileLocation": "current",
+  "attachmentFolderPath": "./attachments",
+  "alwaysUpdateLinks": true
 }
