@@ -12,12 +12,18 @@ PROVIDER = {
     'siliconflow': {
         'base_url': 'https://api.siliconflow.cn/v1',
         'model_image': 'Pro/Qwen/Qwen2-VL-7B-Instruct',
-        'model_text': 'Qwen/Qwen2.5-7B-Instruct'
+        'model_text': 'deepseek-ai/DeepSeek-R1-0528-Qwen3-8B',
+        # 'model_text': 'deepseek-ai/DeepSeek-R1-0528-Qwen3-8B',
+        # 'model_text': 'THUDM/GLM-Z1-9B-0414',
     },
     'bigmodel': {
         'base_url': 'https://open.bigmodel.cn/api/paas/v4',
         'model_image': 'glm-4v-flash',
-        'model_text': 'glm-4-flash'
+        # 'model_text': 'glm-z1-flash',
+        'model_text': 'glm-4.5-flash',
+    },
+    'gemini': {
+        'base_url': 'https://api.gemini.com/v1',
     }
 }
 
@@ -36,7 +42,8 @@ class LLM(object):
             model=model,
             temperature=0.1,
             messages=message,
-            stream=False
+            stream=False,
+            timeout=30,
         )
         content = resp.choices[0].message.content
         return content
