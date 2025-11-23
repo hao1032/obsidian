@@ -2,5 +2,7 @@
   "readableLineLength": false,
   "newFileLocation": "current",
   "attachmentFolderPath": "./attachments",
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "useMarkdownLinks": true,
+  "newLinkFormat": "relative"
 }
