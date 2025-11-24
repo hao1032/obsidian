@@ -11,3 +11,4 @@ lbecom/site/
 venv
 .idea
 .env
+*.db

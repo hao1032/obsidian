@@ -1,3 +1,4 @@
+import os
 import jmespath
 import requests
 from llm import LLM
@@ -8,19 +9,19 @@ from lark_oapi.api.bitable.v1 import *
 cache = {}
 
 def _get_asd_data(id_):
-    print(f'请求 阿思丹数据，id: {id_}')
     if not id_:
         return {}
     url = f'https://secure.seedasdan.com/hk/project/wx/detail/{id_}'
+    print(f'请求阿思丹数据: {url}')
     if id_ not in cache:
         cache[id_] = requests.get(url).json()
         # print(json.dumps(cache[id_], indent=4, ensure_ascii=False))
     return cache[id_]
 
-def _get_client(environment):
+def _get_client():
     client = lark.Client.builder() \
-        .app_id(environment['FS_APP_ID']) \
-        .app_secret(environment['FS_APP_SECRET']) \
+        .app_id(os.environ['FS_APP_ID']) \
+        .app_secret(os.environ['FS_APP_SECRET']) \
         .log_level(lark.LogLevel.DEBUG) \
         .build()
     return client
@@ -29,7 +30,7 @@ def _get_json_path_value(json_obj, expression):
     if not json_obj or not expression:
         return ''
     matches = jmespath.search(expression, json_obj)
-    return matches[0] if matches else ''
+    return matches if matches else ''
 
 def days_from_today(date_str):
     try:
@@ -42,10 +43,81 @@ def days_from_today(date_str):
     except Exception as e:
         return None
 
-def calendar_update(environment):
+def _get_new_date_from_asd(record, key):
+    # 检查 阿思丹id 和 json path 配置
+    asd_id = record.fields.get('阿思丹id', '')
+    json_path_name = f'下次{key}日期 json path'
+    expression = record.fields.get(json_path_name, '')  # json path 表达式
+    if not asd_id or not expression:
+        print('没有配置阿思丹id 或者 json path')
+        return None, None
+
+    # 获取阿思丹数据
+    data = _get_asd_data(asd_id)
+    date_str = _get_json_path_value(data, expression)
+    print(f'通过 json path 获取到的内容为: {date_str}')
+    record.fields['阿思丹查询日期'] = datetime.now().strftime('%Y-%m-%d')  # 记录阿思丹查询时间
+
+    date_delta = days_from_today(date_str)
+    if date_delta is None:
+        purpose = f"{record.fields.get('名称')} 的 {key} 日期"
+        print(f'获取到的数据不是具体日期，需要使用 ai 分析获取：{purpose}')
+        llm = LLM()
+        result = llm.test_time(purpose, date_str)
+        print(f'ai 获取到的内容: {result}')
+        date_str = result.get(f'{key}日期', '')
+        date_delta = days_from_today(date_str)
+    return date_str, date_delta
+
+def update_time(record, key):
+    print(f'处理 {key} 日期 的更新')
+    prev_date_name = f'上次{key}日期'
+    next_date_name = f'下次{key}日期'
+    modified = False
+
+    # 下次日期，有3种情况：1. 空，2. 有效日期【2025-03-18】，3. 无效日期【2025-03-18 暂定】
+    next_date = record.fields.get(next_date_name, '')
+    next_date_delta = days_from_today(next_date) # 下次日期距离今天的天数
+
+    # 下次日期，有效，并且没有过期
+    if next_date_delta is not None and next_date_delta >= 0:
+        print(f'{key} 日期有效，距离今天还有 {next_date_delta} 天')
+        return modified
+
+    # 下次日期，有效，但是已经过期，复制给上次日期
+    if next_date_delta is not None and next_date_delta < 0:
+        record.fields[prev_date_name] = next_date
+        record.fields[next_date_name] = ''
+        modified = True
+
+    # 如果最近更新过，就不在更新
+    update_date = record.fields.get('更新日期', '')
+    update_delta = days_from_today(update_date)
+    if update_delta is not None and update_delta != 0 and update_delta > -7:
+        print('一周内已经更新过')
+        return modified
+
+    next_date, next_date_delta = _get_new_date_from_asd(record, key)
+    modified = True
+
+    prev_date = record.fields.get(prev_date_name, '')
+    if next_date_delta is not None and next_date_delta < 0 and next_date != prev_date:
+        print(f'获取的 {key} 日期已过期，写入 上次日期')
+        record.fields[prev_date_name] = next_date
+        return modified
+
+    if next_date:
+        print(f'将获取的 {key} 日期写入 {next_date_name}：{next_date}')
+        record.fields[next_date_name] = next_date
+        record.fields['更新日期'] = datetime.now().strftime('%Y-%m-%d')
+
+    return modified
+
+
+def calendar_update():
     app_token = 'KU8HbpYCuac5jIshdTXccJZ5n6f'
     table_id = 'tblhABdrZqDRxOLR'
-    client = _get_client(environment)
+    client = _get_client()
 
     list_request = ListAppTableRecordRequest.builder() \
         .app_token(app_token) \
@@ -58,81 +130,15 @@ def calendar_update(environment):
         return
 
     for record in list_response.data.items:
-        name = record.fields.get('名称', None)
-        print(f'当前处理: {name}')
-
-        # 检查下次报名截止时间是否过期
-        next_reg_days = days_from_today(record.fields.get('下次报名截止日期', ''))
-        if next_reg_days is not None and next_reg_days < 0:
-            record.fields['上次报名截止日期'] = record.fields['下次报名截止日期']
-            record.fields['下次报名截止日期'] = ''
-            print(f'{name} 报名截止 已过期 {record.fields["下次报名截止日期"]}')
-
-        # 检查下次考试时间是否过期
-        next_test_days = days_from_today(record.fields.get('下次考试日期', ''))
-        if next_test_days is not None and next_test_days < 0:
-            record.fields['上次考试日期'] = record.fields['下次考试日期']
-            record.fields['下次考试日期'] = ''
-            print(f'{name} 考试 已过期 {record.fields["下次考试日期"]}')
-
-        # 检查下次报名截止时间和下次考试时间是否依然有效
-        if next_reg_days is not None and next_reg_days > 0 and next_test_days is not None and next_test_days > 0:
-            print(f'{name} 考试、报名时间依然有效')
+        name = record.fields.get('名称', '')
+        if not name:
             continue
+        print(f'\n\n当前处理: {name}')
 
-        # 检查是否需要更新，一周内不再更新
-        update_days = days_from_today(record.fields.get('阿思丹查询日期', ''))
-        if update_days is not None and update_days > -7:
-            print(f'{name} 一周内有更新，跳过本次更新')
+        f1 = update_time(record, '报名截止')
+        f2 = update_time(record, '考试')
+        if not f1 and not f2:
             continue
-
-        # 获取日期位置的 json path
-        reg_path = record.fields.get('下次报名截止日期 json path', '')
-        test_path = record.fields.get('下次考试日期 json path', '')
-        if not reg_path and not test_path:
-            print(f'{name} 缺少 json path，跳过更新')
-            continue
-
-        # 获取阿思丹竞赛数据
-        data = _get_asd_data(record.fields.get('阿思丹id', ''))
-        next_reg_date = _get_json_path_value(data, reg_path)
-        next_test_date = _get_json_path_value(data, test_path)
-        print(f'{name} 获取到新的 下次报名截止时间\n {next_reg_date}\n\n下次考试时间\n {next_test_date}')
-
-        # 使用相同的 path，说明需要使用 ai 分析
-        if reg_path == test_path:
-            print(f'{name} 使用 ai 分析获取时间')
-            try:
-                llm = LLM(key=environment['OPENAI_API_KEY'])
-                result = llm.test_time(record.fields.get('名称'), _get_json_path_value(data, reg_path))
-                print(f'{name}, ai 分析结果: {result}')
-                next_reg_date = result.get('报名截止日期', '')
-                next_test_date = result.get('考试日期', '')
-            except Exception as e:
-                print(e)
-
-        # 更新 下次报名截止时间
-        next_reg_days  = days_from_today(next_reg_date)
-        if next_reg_days is not None and next_reg_days >= 0:
-            record.fields['下次报名截止日期'] = next_reg_date
-            record.fields['更新时间'] = datetime.now().strftime('%Y-%m-%d')
-            print(f'{name} 获取到新的 下次报名截止时间 {next_reg_date}')
-        if next_reg_days is not None and next_reg_days < 0 and not record.fields.get('上次报名截止日期', ''):
-            record.fields['上次报名截止日期'] = next_reg_date
-            print(f'{name} 上次报名截止为空，更新为 {next_reg_date}')
-
-        # 更新 下次考试时间
-        next_test_days  = days_from_today(next_test_date)
-        if next_test_days is not None and next_test_days >= 0:
-            record.fields['下次考试日期'] = next_test_date
-            record.fields['更新时间'] = datetime.now().strftime('%Y-%m-%d')
-            print(f'{name} 获取到新的 下次考试时间 {next_test_date}')
-        if next_test_days is not None and next_test_days < 0 and not record.fields.get('上次考试日期', ''):
-            record.fields['上次考试日期'] = next_test_date
-            print(f'{name} 上次考试日期为空，更新为 {next_test_date}')
-
-        # 记录 更新日期
-        record.fields['阿思丹查询日期'] = datetime.now().strftime('%Y-%m-%d')
 
         update_request = UpdateAppTableRecordRequest.builder() \
             .app_token(app_token) \
@@ -148,8 +154,8 @@ def calendar_update(environment):
         if not response.success():
             lark.logger.error(
                 f"client.bitable.v1.app_table_record.update failed, code: {response.code}, msg: {response.msg}, log_id: {response.get_log_id()}")
-            return
+            continue
 
         print(record.fields)
+        break
 
-        # break

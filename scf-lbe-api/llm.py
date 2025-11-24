@@ -25,10 +25,9 @@ PROVIDER = {
 }
 
 class LLM(object):
-    def __init__(self, provider='siliconflow', key=None):
+    def __init__(self, provider='siliconflow'):
         self.model_image = PROVIDER[provider]['model_image']
         self.model_text = PROVIDER[provider]['model_text']
-        os.environ['OPENAI_API_KEY'] = key
         self.client = openai.OpenAI(base_url=PROVIDER[provider]['base_url'], timeout=50)
 
     def request(self, message, model=None):
@@ -42,18 +41,21 @@ class LLM(object):
         content = resp.choices[0].message.content
         return content
 
-    def test_time(self, test_name, data):
+    def test_time(self, purpose, data):
         message = [
             {'role': "user", 'content': [
-                {'type': 'text', 'text': f'从下面的数据源中提取 {test_name} 的“报名截止日期”和“考试日期”，不需要时间。'},
-                {'type': 'text', 'text': f'注意考试名称，不要搞错项目，弄错日期。'},
-                {'type': 'text', 'text': f'数据源：{data}'},
-                {'type': 'text', 'text': '示例1：{"报名截止日期": "2025-01-13", "考试日期": "2025-01-23"}'},
-                {'type': 'text', 'text': '示例2：{"报名截止日期": "不确定", "考试日期": "2025-01-23"}'},
-                {'type': 'text', 'text': '示例3：{"报名截止日期": "2025-01-13 暂定", "考试日期": "2025-01-23 暂定"}'},
+                {'type': 'text', 'text': f'从下面的数据内容中提取 {purpose} 。'},
+                {'type': 'text', 'text': f'数据内容：{data}'},
+                {'type': 'text', 'text': '返回格式使用json，并根据具体情况添加置信度数据，示例如下：'},
+                {'type': 'text', 'text': '示例 1：{"报名截止日期": "2025-01-13", "置信度": 0.9}'},
+                {'type': 'text', 'text': '示例 2：{"考试日期": "2025-01-13", "置信度": 0.8}'},
+                {'type': 'text', 'text': '示例2：{"报名截止日期": "不确定", "置信度": 0.3}'},
+                {'type': 'text', 'text': '示例3：{"考试日期": "2025-01-13 暂定", "置信度": 0.85}'},
             ]},
         ]
-        r = self.request(message, self.model_text).replace('```json', '').replace('```', '')
+        r = (self.request(message, self.model_text))
+        print(f'ai 返回的内容: {r}')
+        r = r.replace('```json', '').replace('```', '')
         j = json.loads(r)
         return j
 
