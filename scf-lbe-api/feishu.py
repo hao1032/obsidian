@@ -156,6 +156,6 @@ def calendar_update():
                 f"client.bitable.v1.app_table_record.update failed, code: {response.code}, msg: {response.msg}, log_id: {response.get_log_id()}")
             continue
 
-        print(record.fields)
-        break
+        return name
+    return '完成'
 

@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 from feishu import calendar_update
 
@@ -6,6 +5,10 @@ from feishu import calendar_update
 def main_handler(event, context):
     if event['path'] == '/fs' and event['queryString']['action'] == 'calendar_update':
         calendar_update()
+    return {
+        'statusCode': 200,
+        'body': 'success'
+    }
 
 if __name__ == '__main__':
     from dotenv import load_dotenv
