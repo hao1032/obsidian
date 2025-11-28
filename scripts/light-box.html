@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 激光反射实验室</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        #canvas-container { width: 100vw; height: 100vh; display: block; }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+
+        /* 控制面板样式 */
+        .control-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 320px;
+            max-height: 90vh;
+            background: rgba(20, 20, 20, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid #444;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .control-group { margin-bottom: 16px; border-bottom: 1px solid #333; padding-bottom: 12px; }
+        .control-group:last-child { border-bottom: none; }
+        .label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 0.9rem; color: #ccc; }
+        .value-display { font-family: monospace; color: #4ade80; font-size: 0.85rem; }
+
+        input[type=range] {
+            width: 100%;
+            height: 6px;
+            background: #444;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #ef4444; /* Red thumb for laser theme */
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background .2s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover { background: #f87171; }
+
+        .toggle-btn {
+            width: 100%;
+            padding: 8px;
+            background: #333;
+            border: 1px solid #555;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .toggle-btn:hover { background: #444; }
+        .toggle-btn.active { background: #ef4444; border-color: #ef4444; }
+
+        .title { font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; color: #fff; border-bottom: 2px solid #ef4444; padding-bottom: 8px; display: inline-block;}
+    </style>
+</head>
+<body>
+
+    <!-- 3D 容器 -->
+    <div id="canvas-container"></div>
+
+    <!-- UI 控制面板 -->
+    <div class="control-panel">
+        <div class="title">🔬 激光实验室控制台</div>
+
+        <!-- 盒子设置 -->
+        <div class="control-group">
+            <div class="font-bold text-white mb-2">📦 盒子尺寸 (米)</div>
+            <div class="label-row"><span>宽度 (X)</span> <span id="val-width" class="value-display">20</span></div>
+            <input type="range" id="width" min="5" max="50" value="20">
+
+            <div class="label-row mt-2"><span>高度 (Y)</span> <span id="val-height" class="value-display">10</span></div>
+            <input type="range" id="height" min="5" max="30" value="10">
+
+            <div class="label-row mt-2"><span>深度 (Z)</span> <span id="val-depth" class="value-display">20</span></div>
+            <input type="range" id="depth" min="5" max="50" value="20">
+        </div>
+
+        <!-- 激光笔设置 -->
+        <div class="control-group">
+            <div class="font-bold text-white mb-2">🔦 激光笔位置与角度</div>
+
+            <div class="label-row"><span>位置 X</span> <span id="val-posX" class="value-display">0</span></div>
+            <input type="range" id="posX" min="-10" max="10" step="0.1" value="0">
+
+            <div class="label-row mt-2"><span>位置 Y</span> <span id="val-posY" class="value-display">0</span></div>
+            <input type="range" id="posY" min="-5" max="5" step="0.1" value="0">
+
+            <div class="label-row mt-2"><span>位置 Z</span> <span id="val-posZ" class="value-display">0</span></div>
+            <input type="range" id="posZ" min="-10" max="10" step="0.1" value="0">
+
+            <div class="border-t border-gray-700 my-3"></div>
+
+            <div class="label-row"><span>水平角度 (Yaw)</span> <span id="val-yaw" class="value-display">45°</span></div>
+            <input type="range" id="yaw" min="0" max="360" value="45">
+
+            <div class="label-row mt-2"><span>垂直角度 (Pitch)</span> <span id="val-pitch" class="value-display">0°</span></div>
+            <input type="range" id="pitch" min="-89" max="89" value="0">
+        </div>
+
+        <!-- 光线物理设置 -->
+        <div class="control-group">
+            <div class="font-bold text-white mb-2">⚡ 光线物理属性</div>
+
+            <div class="label-row"><span>光线传播速度</span> <span id="val-speed" class="value-display">1.0x</span></div>
+            <input type="range" id="speed" min="0.1" max="5.0" step="0.1" value="1.0">
+
+            <div class="label-row mt-2"><span>光强衰减系数</span> <span id="val-decay" class="value-display">0.05</span></div>
+            <input type="range" id="decay" min="0" max="0.2" step="0.005" value="0.05">
+            <p class="text-xs text-gray-500 mt-1">值越大，光线消失越快</p>
+
+            <div class="label-row mt-2"><span>最大反射次数</span> <span id="val-maxBounces" class="value-display">100</span></div>
+            <input type="range" id="maxBounces" min="10" max="5000" step="10" value="100">
+            <p class="text-xs text-gray-500 mt-1">增加此值可允许更多次反弹</p>
+        </div>
+
+        <button id="reset-cam" class="toggle-btn">重置相机视角</button>
+        <div class="mt-2 text-xs text-gray-400 text-center">
+            左键旋转 • 右键平移 • 滚轮缩放
+        </div>
+    </div>
+
+    <!-- 引入 Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        // --- 全局变量 ---
+        let scene, camera, renderer, controls;
+        let boxMesh, boxHelper;
+        let laserSourceMesh; // 激光笔模型
+        let laserRayMesh; // 激光光束
+        let laserPath = []; // 存储计算出的反射路径点
+
+        // 配置参数
+        const params = {
+            width: 20,
+            height: 10,
+            depth: 20,
+            posX: 0,
+            posY: 0,
+            posZ: 0,
+            yaw: 45, // 度
+            pitch: 0, // 度
+            speed: 1.0,
+            decay: 0.05,
+            maxBounces: 100 // 最大反射次数
+        };
+
+        // 动画状态
+        let currentDrawDistance = 0; // 当前画了多长的线
+        let totalPathDistance = 0;   // 完整路径的总长度
+
+        // --- 初始化 ---
+        function init() {
+            // 1. 场景设置
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x050505);
+            scene.fog = new THREE.FogExp2(0x050505, 0.02);
+
+            // 2. 相机
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(25, 15, 25);
+
+            // 3. 渲染器
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            // 4. 控制器
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+
+            // 5. 灯光 (为了看清激光笔)
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+            const pointLight = new THREE.PointLight(0xffffff, 0.8);
+            pointLight.position.set(10, 10, 10);
+            scene.add(pointLight);
+
+            // 6. 创建对象
+            createBox();
+            createLaserSource();
+            createLaserRay(); // 初始化空的激光线
+
+            // 7. 事件监听
+            window.addEventListener('resize', onWindowResize);
+            document.getElementById('reset-cam').addEventListener('click', () => {
+                camera.position.set(25, 15, 25);
+                controls.target.set(0,0,0);
+            });
+
+            // 绑定所有 Range Input
+            const inputs = document.querySelectorAll('input[type=range]');
+            inputs.forEach(input => {
+                input.addEventListener('input', updateParams);
+            });
+
+            // 初始计算
+            recalculatePath();
+            animate();
+        }
+
+        // --- 创建/更新 3D 对象 ---
+
+        function createBox() {
+            // 移除旧的
+            if (boxMesh) scene.remove(boxMesh);
+            if (boxHelper) scene.remove(boxHelper);
+
+            // 创建盒子几何体
+            const geometry = new THREE.BoxGeometry(params.width, params.height, params.depth);
+
+            // 材质：BackSide 渲染内部，看起来像深色镜面
+            const material = new THREE.MeshPhysicalMaterial({
+                color: 0x222222,
+                metalness: 0.8,
+                roughness: 0.2,
+                side: THREE.BackSide, // 关键：渲染内部
+                transparent: true,
+                opacity: 0.8
+            });
+
+            boxMesh = new THREE.Mesh(geometry, material);
+            scene.add(boxMesh);
+
+            // 添加网格辅助线，让盒子看起来更有科技感
+            boxHelper = new THREE.BoxHelper(boxMesh, 0x555555);
+            scene.add(boxHelper);
+        }
+
+        function createLaserSource() {
+            // 激光笔模型：一个圆柱体 + 一个锥体
+            const group = new THREE.Group();
+
+            const bodyGeo = new THREE.CylinderGeometry(0.2, 0.2, 1.5, 16);
+            const bodyMat = new THREE.MeshStandardMaterial({ color: 0x888888 });
+            const body = new THREE.Mesh(bodyGeo, bodyMat);
+            body.rotation.x = -Math.PI / 2; // 指向 Z 轴
+
+            const tipGeo = new THREE.ConeGeometry(0.25, 0.5, 16);
+            const tipMat = new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0xff0000, emissiveIntensity: 0.5 });
+            const tip = new THREE.Mesh(tipGeo, tipMat);
+            tip.rotation.x = -Math.PI / 2;
+            tip.position.z = 1.0;
+
+            group.add(body);
+            group.add(tip);
+
+            laserSourceMesh = group;
+            scene.add(laserSourceMesh);
+        }
+
+        function createLaserRay() {
+            // 使用 BufferGeometry 创建线
+            // 增加到 3000 个顶点以支持高反射次数
+            const maxPoints = 3000;
+            const geometry = new THREE.BufferGeometry();
+
+            const positions = new Float32Array(maxPoints * 3);
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            // 激光材质：红色，AdditiveBlending 会让重叠部分更亮，看起来像光
+            const material = new THREE.LineBasicMaterial({
+                color: 0xff0000,
+                linewidth: 2,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            laserRayMesh = new THREE.Line(geometry, material);
+            // 确保不被视锥剔除
+            laserRayMesh.frustumCulled = false;
+            scene.add(laserRayMesh);
+        }
+
+        // --- 核心物理逻辑：光线追踪 ---
+
+        function recalculatePath() {
+            laserPath = []; // 清空路径
+            totalPathDistance = 0;
+            currentDrawDistance = 0; // 重置动画
+
+            // 1. 起点
+            let origin = new THREE.Vector3(params.posX, params.posY, params.posZ);
+
+            // 2. 初始方向 (基于 Yaw 和 Pitch 计算)
+            const euler = new THREE.Euler(
+                THREE.MathUtils.degToRad(-params.pitch),
+                THREE.MathUtils.degToRad(-params.yaw),
+                0,
+                'YXZ'
+            );
+            let direction = new THREE.Vector3(0, 0, 1).applyEuler(euler).normalize();
+
+            // 更新激光笔模型的位置和朝向
+            laserSourceMesh.position.copy(origin);
+            laserSourceMesh.setRotationFromEuler(euler);
+
+            // 添加起点
+            laserPath.push({ point: origin.clone(), distance: 0 });
+
+            // 3. 准备 Raycaster
+            const raycaster = new THREE.Raycaster();
+
+            // 定义盒子的边界
+            const halfW = params.width / 2;
+            const halfH = params.height / 2;
+            const halfD = params.depth / 2;
+
+            let currentPos = origin.clone();
+            let currentDir = direction.clone();
+            let totalDist = 0;
+
+            // 4. 循环反射，使用 maxBounces 参数
+            for (let i = 0; i < params.maxBounces; i++) {
+                raycaster.set(currentPos, currentDir);
+
+                // 我们检测与盒子内部的碰撞 (BackSide)
+                const intersects = raycaster.intersectObject(boxMesh);
+
+                if (intersects.length > 0) {
+                    let hit = null;
+                    // 防止自我相交
+                    for(let k=0; k<intersects.length; k++) {
+                        if(intersects[k].distance > 0.001) {
+                            hit = intersects[k];
+                            break;
+                        }
+                    }
+
+                    if (hit) {
+                        const hitPoint = hit.point;
+                        const dist = hit.distance;
+
+                        totalDist += dist;
+
+                        // 记录路径点
+                        laserPath.push({
+                            point: hitPoint.clone(),
+                            distance: totalDist
+                        });
+
+                        // 强度检查
+                        const intensity = Math.exp(-params.decay * totalDist);
+                        // 如果衰减非常大且强度已经很弱，则停止，除非 decay 是 0
+                        if (params.decay > 0 && intensity < 0.01) break;
+
+                        // 根据击中点坐标判断法线 (Box法线简化处理)
+                        let normal = new THREE.Vector3();
+                        const epsilon = 0.01;
+
+                        if (Math.abs(hitPoint.x - halfW) < epsilon) normal.set(-1, 0, 0);
+                        else if (Math.abs(hitPoint.x + halfW) < epsilon) normal.set(1, 0, 0);
+                        else if (Math.abs(hitPoint.y - halfH) < epsilon) normal.set(0, -1, 0);
+                        else if (Math.abs(hitPoint.y + halfH) < epsilon) normal.set(0, 1, 0);
+                        else if (Math.abs(hitPoint.z - halfD) < epsilon) normal.set(0, 0, -1);
+                        else if (Math.abs(hitPoint.z + halfD) < epsilon) normal.set(0, 0, 1);
+                        else {
+                             normal.copy(hit.face.normal).negate();
+                        }
+
+                        // 计算新的反射方向
+                        currentDir.reflect(normal).normalize();
+                        currentPos = hitPoint.clone();
+
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+            totalPathDistance = totalDist;
+        }
+
+        // --- 渲染循环 ---
+
+        function updateLaserVisuals() {
+            // 动画逻辑
+            const speed = params.speed * 0.5;
+            currentDrawDistance += speed;
+
+            if (currentDrawDistance > totalPathDistance) {
+                currentDrawDistance = totalPathDistance;
+            }
+
+            const positions = laserRayMesh.geometry.attributes.position.array;
+            let posIndex = 0;
+
+            if (laserPath.length > 0) {
+                positions[posIndex++] = laserPath[0].point.x;
+                positions[posIndex++] = laserPath[0].point.y;
+                positions[posIndex++] = laserPath[0].point.z;
+            }
+
+            let distCovered = 0;
+
+            for (let i = 0; i < laserPath.length - 1; i++) {
+                const p1 = laserPath[i].point;
+                const p2 = laserPath[i+1].point;
+
+                const segmentLength = p1.distanceTo(p2);
+
+                if (distCovered + segmentLength > currentDrawDistance) {
+                    // 插值
+                    const remaining = currentDrawDistance - distCovered;
+                    const alpha = remaining / segmentLength;
+
+                    const pEnd = new THREE.Vector3().lerpVectors(p1, p2, alpha);
+
+                    positions[posIndex++] = pEnd.x;
+                    positions[posIndex++] = pEnd.y;
+                    positions[posIndex++] = pEnd.z;
+
+                    laserRayMesh.geometry.setDrawRange(0, i + 2);
+                    break;
+                } else {
+                    positions[posIndex++] = p2.x;
+                    positions[posIndex++] = p2.y;
+                    positions[posIndex++] = p2.z;
+                    distCovered += segmentLength;
+
+                    if (i === laserPath.length - 2) {
+                        laserRayMesh.geometry.setDrawRange(0, i + 2);
+                    }
+                }
+            }
+            laserRayMesh.geometry.attributes.position.needsUpdate = true;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            updateLaserVisuals();
+            renderer.render(scene, camera);
+        }
+
+        // --- UI 交互逻辑 ---
+
+        function updateParams(e) {
+            const id = e.target.id;
+            const val = parseFloat(e.target.value);
+
+            params[id] = val;
+
+            // 更新显示文本
+            const display = document.getElementById(`val-${id}`);
+            if (display) {
+                if (id === 'yaw' || id === 'pitch') display.innerText = val + '°';
+                else if (id === 'speed') display.innerText = val.toFixed(1) + 'x';
+                else display.innerText = val;
+            }
+
+            // 限制激光位置在盒子内部
+            if (id.startsWith('width') || id.startsWith('height') || id.startsWith('depth')) {
+                // 更新盒子大小
+                createBox();
+
+                // 动态更新 Slider 的 min/max 以防止激光跑到外面
+                const pX = document.getElementById('posX');
+                const pY = document.getElementById('posY');
+                const pZ = document.getElementById('posZ');
+
+                if(pX) { pX.min = -params.width/2 + 0.5; pX.max = params.width/2 - 0.5; }
+                if(pY) { pY.min = -params.height/2 + 0.5; pY.max = params.height/2 - 0.5; }
+                if(pZ) { pZ.min = -params.depth/2 + 0.5; pZ.max = params.depth/2 - 0.5; }
+            }
+
+            // 重新计算路径
+            recalculatePath();
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // 启动
+        init();
+
+    </script>
+</body>
+</html>
