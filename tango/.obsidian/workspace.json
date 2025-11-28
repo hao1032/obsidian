@@ -62,7 +62,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -135,7 +135,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "company/工作日报.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -145,7 +144,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "工作日报 的反向链接列表"
+              "title": "反向链接"
             }
           },
           {
@@ -183,13 +182,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "company/工作日报.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "工作日报 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -234,15 +232,15 @@
       "obsidian-git:Open Git source control": true
     }
   },
-  "active": "b5490a850dd5b0c1",
+  "active": "aa0cbebbb1ddb45b",
   "lastOpenFiles": [
+    "conflict-files-obsidian-git.md",
+    "company/工作日报.md",
     "company/使用的软件.md",
     "company/clsf 文件命令.md",
-    "company/工作日报.md",
     "temp/RSS.md",
     "temp/使用的软件.md",
     "temp/充电接口.md",
-    "conflict-files-obsidian-git.md",
     "Todo.md",
     "clash.md",
     "Patch Google Photos Using ReVanced CLI.md",

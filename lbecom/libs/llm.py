@@ -25,7 +25,7 @@ PROVIDER = {
     'gemini': {
         'base_url': 'https://generativelanguage.googleapis.com/v1beta/openai/',
         'model_image': 'gemini-2.5-pro',
-        'model_text': 'gemini-2.5-pro',
+        'model_text': 'gemini-2.5-flash',
     }
 }
 
@@ -110,11 +110,9 @@ class LLM(object):
                 {'type': 'text', 'text': '示例1：{"报名截止": "2025-01-13", "考试日期": "2025-01-23"}'},
                 {'type': 'text', 'text': '示例2：{"报名截止": "不确定", "考试日期": "2025-01-23"}'},
                 {'type': 'text', 'text': '示例3：{"报名截止": "2025-01-13 暂定", "考试日期": "2025-01-23 暂定"}'},
-                {'type': 'text', 'text': '返回格式为json文本，不需要code ``` 包裹，不需要外层的```json'},
             ]},
         ]
-        r = self.request(message, self.model_text)
-        print( r)
+        r = self.request(message, self.model_text).replace('```json', '').replace('```', '')
         j = json.loads(r)
         return j
 

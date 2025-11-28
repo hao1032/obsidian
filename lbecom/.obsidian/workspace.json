@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "58c070db46751118",
+        "id": "afcbb4daca8de84d",
         "type": "tabs",
         "children": [
           {
-            "id": "df93229d760d07f1",
+            "id": "bf227ee7a263898f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "internal/竞赛时间.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "竞赛时间"
+              "title": "新标签页"
             }
           }
         ]
@@ -180,30 +176,37 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "df93229d760d07f1",
+  "active": "c6ae3c075ba65f52",
   "lastOpenFiles": [
+    "docs/calendar.md",
+    "scripts/aa.json",
+    "scripts/calendar_feishu_update.py",
+    "docs/AMC/00 index.md",
+    "docs/BPhO/00 index.md",
+    "docs/AMC/attachments/89f98vf98cx987vz675.jpg",
+    "docs/AMC/attachments",
+    "8d3aa8cfce1846533a85a71a11914327.jpg",
+    "docs/pan.md",
+    "docs/AMC",
+    "docs/index.md",
+    "docs/BPhO/05 BPhO Round 1.md",
+    "docs/BPhO/04 BPhO Round 0.md",
+    "docs/BPhO/03 IPC&SPC 英国物理测评(中&高级).md",
+    "docs/BPhO/02 IPC&SPC Online 英国物理测评(中&高级).md",
+    "docs/BPhO/01 JPC 英国物理测评(初级).md",
+    "internal/竞赛时间.md",
+    "main.py",
+    "libs/__pycache__/md_table.cpython-313.pyc",
+    "libs/__pycache__/llm.cpython-313.pyc",
     "libs/__pycache__/llm.cpython-310.pyc",
     "libs/llm.py",
     "libs/__pycache__/md_table.cpython-310.pyc",
-    "libs/__pycache__",
-    "libs/md_table.py",
-    "libs/md.py",
-    "libs",
-    "scripts/calendar_update.py",
-    "scripts",
-    "docs/calendar.md",
-    "未命名.base",
-    "未命名.md",
-    "overrides/calendar.html",
     "internal/lbecom 站点.md",
-    "internal/竞赛时间.md",
-    "docs/BPhO/index.md",
     "internal/UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
     "internal/pan-serverless.md",
     "docs/assets/favicon.png",
     "assets/images/logo.png",
     "assets/images/favicon.png",
-    "docs/index.md",
     "internal/attachments/Pasted image 20251106004457.png",
     "internal/attachments/Pasted image 20251104224700.png",
     "internal/竞赛总览.md",

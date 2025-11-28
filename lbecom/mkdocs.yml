@@ -26,6 +26,10 @@ theme:
 hooks:
   - hooks/md.py
 
+plugins:
+  - search
+  - pub-obsidian
+
 extra:
   generator: false  # 去除底部 mkdocs 推广链接
 
