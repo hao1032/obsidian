@@ -62,7 +62,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -135,6 +135,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "company/工作日报.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -144,7 +145,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "反向链接"
+              "title": "工作日报 的反向链接列表"
             }
           },
           {
@@ -182,12 +183,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "company/工作日报.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "工作日报 的大纲"
             }
           },
           {
@@ -232,7 +234,7 @@
       "obsidian-git:Open Git source control": true
     }
   },
-  "active": "aa0cbebbb1ddb45b",
+  "active": "b5490a850dd5b0c1",
   "lastOpenFiles": [
     "conflict-files-obsidian-git.md",
     "company/工作日报.md",
