@@ -4,25 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "0731d5ca44d06e43",
+        "id": "8be4d9c42ab524a3",
         "type": "tabs",
         "children": [
           {
-            "id": "5f78120335c002bd",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "company/clsf 文件命令.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "clsf 文件命令"
-            }
-          },
-          {
-            "id": "02a6f7e544b4b239",
+            "id": "752a119c934c46ad",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -34,35 +20,8 @@
               "icon": "lucide-file",
               "title": "工作日报"
             }
-          },
-          {
-            "id": "aa0cbebbb1ddb45b",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.10.6"
-              },
-              "icon": "lucide-book-up",
-              "title": "版本说明 1.10.6"
-            }
-          },
-          {
-            "id": "423f23dc510c2402",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "company/clsf 文件命令.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "clsf 文件命令"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -234,12 +193,12 @@
       "obsidian-git:Open Git source control": true
     }
   },
-  "active": "b5490a850dd5b0c1",
+  "active": "752a119c934c46ad",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
     "company/工作日报.md",
-    "company/使用的软件.md",
     "company/clsf 文件命令.md",
+    "conflict-files-obsidian-git.md",
+    "company/使用的软件.md",
     "temp/RSS.md",
     "temp/使用的软件.md",
     "temp/充电接口.md",
