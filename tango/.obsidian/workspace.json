@@ -176,7 +176,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -192,7 +192,7 @@
       "obsidian-git:Open Git source control": true
     }
   },
-  "active": "752a119c934c46ad",
+  "active": "3fbb1c801e86c726",
   "lastOpenFiles": [
     "company/工作日报.md",
     "company/clsf 文件命令.md",
