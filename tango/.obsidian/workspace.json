@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Todo.md",
+                "file": "company/工作日报.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Todo"
+              "title": "工作日报"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Todo.md",
+                "file": "company/工作日报.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Todo 的大纲"
+              "title": "工作日报 的大纲"
             }
           },
           {
@@ -194,8 +194,8 @@
   },
   "active": "752a119c934c46ad",
   "lastOpenFiles": [
-    "clash.md",
     "Todo.md",
+    "clash.md",
     "Patch Google Photos Using ReVanced CLI.md",
     "temp/使用的软件.md",
     "company/工作日报.md",
