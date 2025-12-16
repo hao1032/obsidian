@@ -16,3 +16,7 @@ luoboedu.com
 
 2. 申请证书
 3. 恢复 DNSSEC
+
+lbepan.luoboedu.com
+https://console.cloud.tencent.com/scf/domain?rid=1
+
