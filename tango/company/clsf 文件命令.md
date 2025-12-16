@@ -1,3 +1,6 @@
+UG 位置：
+f:\Program Files\Siemens\NX2412\MACH\resource\tool_path\clsf.def
+f:\Program Files\Siemens\NX2412\MACH\resource\tool_path\clsf.tcl
 # CYCLE
 ### 一、 CYCLE 命令的基本结构
 
@@ -107,3 +110,17 @@ $$\text{CYCLE}/\text{TAP}, \text{DEPTH}, d, \text{FEDRAT}, f, \dots$$
     ```
     
     此时，后续的 `GOTO` 命令将回到标准的点对点移动模式。
+
+# CIRCLE
+circle {"CIRCLE/"\nows
+X[$mom_arc_center(0)]
+Y[$mom_arc_center(1)]
+Z[$mom_arc_center(2)]
+I[$mom_arc_axis(0)]
+J[$mom_arc_axis(1)]
+K[$mom_arc_axis(2)]
+Radius[$mom_arc_radius]
+Tolerance[$mom_arc_tolerance]
+Intol[$mom_arc_intol_fraction]
+Tool_dia[$mom_tool_diameter]
+Corner1[$tool_corner_radius]}
