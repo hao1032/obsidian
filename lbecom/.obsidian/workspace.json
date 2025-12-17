@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "afcbb4daca8de84d",
+        "id": "4dfe7c75fadc964b",
         "type": "tabs",
         "children": [
           {
-            "id": "bf227ee7a263898f",
+            "id": "a4f77498ef93f92e",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "internal/pan-serverless.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "pan-serverless"
             }
           }
         ]
@@ -176,8 +180,9 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "c6ae3c075ba65f52",
+  "active": "a4f77498ef93f92e",
   "lastOpenFiles": [
+    "internal/lbecom 站点.md",
     "docs/calendar.md",
     "scripts/aa.json",
     "scripts/calendar_feishu_update.py",
@@ -201,7 +206,6 @@
     "libs/__pycache__/llm.cpython-310.pyc",
     "libs/llm.py",
     "libs/__pycache__/md_table.cpython-310.pyc",
-    "internal/lbecom 站点.md",
     "internal/UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
     "internal/pan-serverless.md",
     "docs/assets/favicon.png",
