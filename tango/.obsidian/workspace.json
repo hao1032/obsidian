@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "company/工作日报.md",
+                "file": "company/clsf 文件命令.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "工作日报"
+              "title": "clsf 文件命令"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "company/工作日报.md",
+                "file": "company/clsf 文件命令.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "工作日报 的大纲"
+              "title": "clsf 文件命令 的大纲"
             }
           },
           {
@@ -194,8 +194,8 @@
   },
   "active": "752a119c934c46ad",
   "lastOpenFiles": [
-    "company/clsf 文件命令.md",
     "company/工作日报.md",
+    "company/clsf 文件命令.md",
     "Todo.md",
     "clash.md",
     "Patch Google Photos Using ReVanced CLI.md",
