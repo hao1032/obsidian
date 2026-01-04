@@ -35,8 +35,7 @@
               "title": "工业 CAM 软件模块机构"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -157,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "company/工业 CAM 软件模块机构.md",
+                "file": "company/工作日报.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "工业 CAM 软件模块机构 的大纲"
+              "title": "工作日报 的大纲"
             }
           },
           {
@@ -207,10 +206,10 @@
       "obsidian-git:Open Git source control": true
     }
   },
-  "active": "2956c8b135c33ae7",
+  "active": "752a119c934c46ad",
   "lastOpenFiles": [
-    "company/工作日报.md",
     "company/工业 CAM 软件模块机构.md",
+    "company/工作日报.md",
     "company/clsf 文件命令.md",
     "Todo.md",
     "clash.md",
