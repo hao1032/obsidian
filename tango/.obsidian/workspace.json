@@ -13,12 +13,24 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "temp/使用的软件.md",
+                "file": "company/工作日报.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "使用的软件"
+              "title": "工作日报"
+            }
+          },
+          {
+            "id": "984b782e35a46795",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.11.4"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.11.4"
             }
           },
           {
@@ -58,7 +70,7 @@
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
-              "title": "文件列表"
+              "title": "Files"
             }
           },
           {
@@ -156,13 +168,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "temp/使用的软件.md",
+                "file": "company/工作日报.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "使用的软件 的大纲"
+              "title": "Outline of 工作日报"
             }
           },
           {
@@ -190,7 +202,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -198,27 +210,26 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "remotely-save:Remotely Save": false,
-      "switcher:打开快速切换": false,
-      "templates:插入模板": false,
-      "command-palette:打开命令面板": false,
-      "bases:创建新数据库": false,
-      "obsidian-git:Open Git source control": true
+      "switcher:Open quick switcher": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "obsidian-git:Open Git source control": false
     }
   },
   "active": "752a119c934c46ad",
   "lastOpenFiles": [
     "company/工作日报.md",
+    "temp/使用的软件.md",
+    "temp/充电接口.md",
     "company/clsf 文件命令.md",
+    "clash.md",
     "company/工业 CAM 软件模块机构.md",
     "Todo.md",
-    "clash.md",
     "Patch Google Photos Using ReVanced CLI.md",
-    "temp/使用的软件.md",
     "conflict-files-obsidian-git.md",
     "company/使用的软件.md",
     "temp/RSS.md",
-    "temp/充电接口.md",
     "temp/attachments/img_v3_02r3_c56dd58f-fd11-45ea-becf-a1516c72fcfg的副本.jpg",
     "temp/temp.md",
     "temp/attachments/img_v3_02r3_c6bc7baf-68b4-4b0b-b2d6-8daeb70c80ag.jpg",
