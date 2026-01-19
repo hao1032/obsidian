@@ -8,8 +8,8 @@ from PIL import Image, ImageDraw, ImageFont, ImageStat
 from moviepy import VideoFileClip, ImageClip, CompositeVideoClip
 
 # ================= 配置区域 =================
-INPUT_FOLDER = "/Users/tango/Desktop/AMC 视频/合并后/AMC8/"  # 输入视频文件夹
-OUTPUT_FOLDER = "/Users/tango/Desktop/AMC 视频/已添加二维码/AMC8"  # 输出视频文件夹
+INPUT_FOLDER = "/Users/tango/Desktop/AMC 视频/合并后"  # 输入视频文件夹
+OUTPUT_FOLDER = "/Users/tango/Desktop/AMC 视频/已添加二维码"  # 输出视频文件夹
 FONT_PATH = "/Library/Fonts/PingFang.ttc"  # Windows字体路径，Mac换成 /System/Library/Fonts/PingFang.ttc
 QR_DATA = "http://weixin.qq.com/r/mp/10z54bXEIuhdrfGC9xnF"  # 二维码内容
 QR_TEXT = "更多真题资料\n关注公众号"  # 二维码下方文字
@@ -199,9 +199,7 @@ def generate_ffmpeg_cmd(video_path, overlay_image_path, output_path, insertions)
 
         # === 修改重点开始 ===
         "-c:v", "libx264",  # 视频编码器
-
         "-crf", "26",  # [关键] 质量系数：23是标准，26-28可以显著减小体积且肉眼画质损失小
-
         "-preset", "veryfast",  # [关键] 预设：去掉 ultrafast。
         # 可选：medium (最慢/体积最小), fast, veryfast (推荐平衡点)
         # === 修改重点结束 ===
@@ -212,9 +210,9 @@ def generate_ffmpeg_cmd(video_path, overlay_image_path, output_path, insertions)
     return cmd
 
 
-def process_videos():
-    if not os.path.exists(OUTPUT_FOLDER):
-        os.makedirs(OUTPUT_FOLDER)
+def process_videos(input_folder, output_folder):
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
 
     # 1. 生成二维码图片
     overlay_pil = create_qr_overlay(QR_DATA, QR_TEXT, QR_WIDTH, FONT_PATH)
@@ -222,14 +220,14 @@ def process_videos():
     overlay_path = "temp_qr_overlay.png"
     overlay_pil.save(overlay_path)
 
-    files = [f for f in os.listdir(INPUT_FOLDER) if f.lower().endswith(('.mp4', '.mov', '.avi'))]
+    files = [f for f in os.listdir(input_folder) if f.lower().endswith(('.mp4', '.mov', '.avi'))]
 
     from moviepy import VideoFileClip  # 只需要这个来分析
 
     for filename in files:
         print(f"\n\n=== 正在分析: {filename} ===")
-        video_path = os.path.join(INPUT_FOLDER, filename)
-        output_path = os.path.join(OUTPUT_FOLDER, filename)
+        video_path = os.path.join(input_folder, filename)
+        output_path = os.path.join(output_folder, filename)
 
         insertions = []  # 记录所有插入点 (start, dur, x, y)
 
@@ -277,4 +275,12 @@ def process_videos():
 
 
 if __name__ == "__main__":
-    process_videos()
+    for name in [
+        'AMC8专题',
+        'AMC12',
+        'AMC10专题',
+        'AMC10',
+    ]:
+        input_folder = f'{INPUT_FOLDER}/{name}'
+        output_folder = f'{OUTPUT_FOLDER}/{name}'
+        process_videos(input_folder, output_folder)
