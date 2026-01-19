@@ -1,11 +1,9 @@
 import os
 import re
 import subprocess
-
 import numpy as np
 import qrcode
 from PIL import Image, ImageDraw, ImageFont, ImageStat
-from moviepy import VideoFileClip, ImageClip, CompositeVideoClip
 
 # ================= 配置区域 =================
 INPUT_FOLDER = "/Users/tango/Desktop/AMC 视频/合并后"  # 输入视频文件夹
@@ -263,7 +261,10 @@ def process_videos(input_folder, output_folder):
                 else:
                     print(f"  [失败] FFmpeg 报错:\n{result.stderr}")
             else:
-                print("\n  [提示] 未找到合适插入点，跳过合成。")
+                print("\n  [提示] 未找到合适插入点，直接复制原文件...")
+                import shutil
+                shutil.copy2(video_path, output_path)  # 复制文件及元数据
+                print(f"  [完成] 文件已复制至: {output_path}")
 
         except Exception as e:
             print(f"\n  [异常] 处理 {filename} 时出错: {e}")
