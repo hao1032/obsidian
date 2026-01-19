@@ -1,25 +1,70 @@
 import os
+import re
+import subprocess
+
 import numpy as np
 import qrcode
 from PIL import Image, ImageDraw, ImageFont, ImageStat
 from moviepy import VideoFileClip, ImageClip, CompositeVideoClip
 
 # ================= 配置区域 =================
-INPUT_FOLDER = "/Users/tango/Desktop/video/"  # 输入视频文件夹
-OUTPUT_FOLDER = "/Users/tango/Desktop/Merged/"  # 输出视频文件夹
+INPUT_FOLDER = "/Users/tango/Desktop/AMC 视频/合并后/AMC8/"  # 输入视频文件夹
+OUTPUT_FOLDER = "/Users/tango/Desktop/AMC 视频/已添加二维码/AMC8"  # 输出视频文件夹
 FONT_PATH = "/Library/Fonts/PingFang.ttc"  # Windows字体路径，Mac换成 /System/Library/Fonts/PingFang.ttc
-QR_DATA = "https://www.example.com"  # 二维码内容
-QR_TEXT = "更多真题、关注公众号"  # 二维码下方文字
+QR_DATA = "http://weixin.qq.com/r/mp/10z54bXEIuhdrfGC9xnF"  # 二维码内容
+QR_TEXT = "更多真题资料\n关注公众号"  # 二维码下方文字
 QR_WIDTH = 200  # 二维码总宽度
 START_TIME = 5 * 60  # 首次插入时间：5分钟
 INTERVAL = 10 * 60  # 间隔时间：10分钟
-DURATION = 5  # 显示持续时间：5秒
+DURATION = 60  # 显示持续时间：秒
 CHECK_STEP = 5  # 没找到空白时，延后几秒重试
-BLANK_STD_THRESHOLD = 15  # 标准差阈值：越小越“纯净”（空白）
+BLANK_STD_THRESHOLD = 5  # 标准差阈值：越小越“纯净”（空白）
 BLANK_MEAN_THRESHOLD = 200  # 亮度阈值：大于此值认为是白色背景 (0-255)
 
 
 # ===========================================
+
+def run_ffmpeg_with_progress(cmd):
+    """执行FFmpeg命令并显示进度条"""
+    process = subprocess.Popen(
+        cmd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True,
+        bufsize=1
+    )
+
+    total_duration = None
+
+    # 实时读取stderr输出
+    for line in process.stderr:
+        line = line.strip()
+
+        # 解析总时长
+        if "Duration:" in line:
+            duration_match = re.search(r'Duration: (\d{2}):(\d{2}):(\d{2}\.\d{2})', line)
+            if duration_match:
+                h, m, s = duration_match.groups()
+                total_duration = int(h) * 3600 + int(m) * 60 + float(s)
+
+        # 解析当前处理时间
+        if "time=" in line:
+            time_match = re.search(r'time=(\d{2}):(\d{2}):(\d{2}\.\d{2})', line)
+            if time_match:
+                h, m, s = time_match.groups()
+                current_time = int(h) * 3600 + int(m) * 60 + float(s)
+
+                if total_duration:
+                    progress = min(current_time / total_duration * 100, 100)
+                    bar_length = 30
+                    filled_length = int(bar_length * progress // 100)
+                    bar = '█' * filled_length + '-' * (bar_length - filled_length)
+
+                    print(f'\rProgress: |{bar}| {progress:.1f}% Complete', end='', flush=True)
+
+    # 等待进程完成
+    process.wait()
+    return process
 
 def create_qr_overlay(data, text, width, font_path):
     """
@@ -100,7 +145,7 @@ def find_safe_position(clip, start_t, duration, w, h):
 
     # 我们需要在 duration 时间段内检查多个时间点
     # 例如显示5秒，我们在 0s, 1s, 2s, 3s, 4s, 5s 分别检查
-    check_points = np.linspace(start_t, start_t + duration, num=6)
+    check_points = np.linspace(start_t, start_t + duration, num=10)
 
     # 优化：先一次性获取这些时间点的帧，避免重复读取 IO
     # 注意：如果内存不够，可以改回循环读取
@@ -129,68 +174,103 @@ def find_safe_position(clip, start_t, duration, w, h):
     return None
 
 
+def generate_ffmpeg_cmd(video_path, overlay_image_path, output_path, insertions):
+    if not insertions:
+        return None
+    filter_complex = ""
+    current_stream = "[0:v]"
+    for i, (start, dur, x, y) in enumerate(insertions):
+        end = start + dur
+        output_name = f"[v{i}]" if i < len(insertions) - 1 else "[outv]"
+        filter_complex += (
+            f"{current_stream}[1:v]overlay=x={x}:y={y}:"
+            f"enable='between(t,{start},{end})'{output_name};"
+        )
+        current_stream = output_name
+    filter_complex = filter_complex.rstrip(";")
+
+    cmd = [
+        "ffmpeg", "-y",
+        "-i", video_path,
+        "-i", overlay_image_path,
+        "-filter_complex", filter_complex,
+        "-map", "[outv]",
+        "-map", "0:a?",
+
+        # === 修改重点开始 ===
+        "-c:v", "libx264",  # 视频编码器
+
+        "-crf", "26",  # [关键] 质量系数：23是标准，26-28可以显著减小体积且肉眼画质损失小
+
+        "-preset", "veryfast",  # [关键] 预设：去掉 ultrafast。
+        # 可选：medium (最慢/体积最小), fast, veryfast (推荐平衡点)
+        # === 修改重点结束 ===
+
+        "-c:a", "copy",  # 音频直接复制，不占体积
+        output_path
+    ]
+    return cmd
+
+
 def process_videos():
     if not os.path.exists(OUTPUT_FOLDER):
         os.makedirs(OUTPUT_FOLDER)
 
-    # 生成二维码素材
+    # 1. 生成二维码图片
     overlay_pil = create_qr_overlay(QR_DATA, QR_TEXT, QR_WIDTH, FONT_PATH)
     overlay_w, overlay_h = overlay_pil.size
-    overlay_path = "temp_qr_pil.png"
+    overlay_path = "temp_qr_overlay.png"
     overlay_pil.save(overlay_path)
 
     files = [f for f in os.listdir(INPUT_FOLDER) if f.lower().endswith(('.mp4', '.mov', '.avi'))]
 
+    from moviepy import VideoFileClip  # 只需要这个来分析
+
     for filename in files:
-        print(f"处理中: {filename}")
+        print(f"\n\n=== 正在分析: {filename} ===")
         video_path = os.path.join(INPUT_FOLDER, filename)
         output_path = os.path.join(OUTPUT_FOLDER, filename)
 
+        insertions = []  # 记录所有插入点 (start, dur, x, y)
+
         try:
+            # === 第一阶段：使用 MoviePy 分析空白位置 ===
             clip = VideoFileClip(video_path)
-
-            # 收集所有的贴图层
-            overlays = []
-
+            duration = clip.duration
             current_t = START_TIME
 
-            # 循环直到视频结束
-            while current_t < clip.duration - DURATION:
-                print(f"  > 正在检查时间点 {int(current_t)}s ...", end="\r")
-
+            while current_t < duration - DURATION:
+                print(f"  > 扫描时间点: {int(current_t)}s", end="\r")
                 pos = find_safe_position(clip, current_t, DURATION, overlay_w, overlay_h)
 
                 if pos:
-                    print(f"\n    [√] 在 {int(current_t)}s 发现空白区域 {pos}，插入二维码")
-                    # 创建贴图 Clip
-                    qr_clip = (ImageClip(overlay_path)
-                               .with_start(current_t)
-                               .with_duration(DURATION)
-                               .with_position(pos))
-                    overlays.append(qr_clip)
-
-                    # 成功插入后，跳过 10 分钟
+                    print(f"  [√] 命中: {int(current_t)}s 坐标:{pos}          ")
+                    insertions.append((current_t, DURATION, pos[0], pos[1]))
                     current_t += INTERVAL
                 else:
-                    # 失败，延后 5 秒重试
                     current_t += CHECK_STEP
 
-            print(f"\n  > 开始合成视频，共有 {len(overlays)} 个插入点...")
+            clip.close()  # 分析完立刻关闭，释放资源
 
-            # 合成视频
-            if overlays:
-                final = CompositeVideoClip([clip] + overlays)
+            # === 第二阶段：使用 FFmpeg 极速合成 ===
+            if insertions:
+                print(f"\n  > 开始 FFmpeg 渲染 (共 {len(insertions)} 处插入)...")
+                cmd = generate_ffmpeg_cmd(video_path, overlay_path, output_path, insertions)
+
+                # 执行命令
+                result = run_ffmpeg_with_progress(cmd)
+
+                if result.returncode == 0:
+                    print(f"  [成功] 视频已保存: {output_path}")
+                else:
+                    print(f"  [失败] FFmpeg 报错:\n{result.stderr}")
             else:
-                final = clip
-
-            final.write_videofile(output_path, codec="libx264", audio_codec="aac", preset="ultrafast", fps=clip.fps)
-
-            final.close()
-            clip.close()
-            print(f"完成: {filename}\n" + "-" * 30)
+                print("\n  [提示] 未找到合适插入点，跳过合成。")
 
         except Exception as e:
-            print(f"错误: {e}")
+            print(f"\n  [异常] 处理 {filename} 时出错: {e}")
+            import traceback
+            traceback.print_exc()
 
     if os.path.exists(overlay_path):
         os.remove(overlay_path)
