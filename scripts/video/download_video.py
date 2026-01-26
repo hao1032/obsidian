@@ -8,9 +8,7 @@ folder_url = {
 }
 
 video_urls = [
-    'https://www.bilibili.com/video/BV1GHCMBpEdZ/?spm_id_from=333.337.search-card.all.click&vd_source=c0537c5a5377f2ba272405e35c1565c5',
-    'https://www.bilibili.com/video/BV16B2FBJEWn/?spm_id_from=333.337.search-card.all.click',
-    'https://www.bilibili.com/video/BV1nB2FBnEv8/?spm_id_from=333.337.search-card.all.click'
+    'https://www.bilibili.com/video/BV1Xa4y167Yv?spm_id_from=333.788.videopod.episodes&vd_source=c0537c5a5377f2ba272405e35c1565c5'
 ]
 
 ydl_opts = {

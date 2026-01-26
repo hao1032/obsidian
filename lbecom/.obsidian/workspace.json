@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/calendar.md",
+                "file": "internal/资料完整度/袋鼠数学.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "calendar"
+              "title": "袋鼠数学"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/calendar.md",
+                "file": "internal/资料完整度/袋鼠数学.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "calendar 的大纲"
+              "title": "袋鼠数学 的大纲"
             }
           },
           {
@@ -162,12 +162,11 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 400.5,
-    "collapsed": true
+    "width": 400.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -181,11 +180,13 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "dc0ad8600c155969",
+  "active": "9b7b79f0892a52a9",
   "lastOpenFiles": [
+    "docs/calendar.md",
+    "internal/资料完整度/袋鼠数学.md",
+    "internal/资料完整度",
     "internal/pan-serverless.md",
     "internal/lbecom 站点.md",
-    "docs/calendar.md",
     "scripts/aa.json",
     "scripts/calendar_feishu_update.py",
     "docs/AMC/00 index.md",
@@ -207,7 +208,6 @@
     "libs/__pycache__/llm.cpython-313.pyc",
     "libs/__pycache__/llm.cpython-310.pyc",
     "libs/llm.py",
-    "libs/__pycache__/md_table.cpython-310.pyc",
     "internal/UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
     "docs/assets/favicon.png",
     "assets/images/logo.png",

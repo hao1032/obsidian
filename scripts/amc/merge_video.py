@@ -108,7 +108,7 @@ def merge_amc_videos(source_folder, output_folder):
 # 如果你的视频在 "videos" 文件夹，请改为 source_dir = "videos"
 
 source_dir = r"/Users/tango/Desktop/video/"  # 输入文件夹路径 (请修改这里)
-output_dir = r"/Users/tango/Desktop/Merged"  # 输出文件夹路径 (请修改这里)
+output_dir = r"/Users/tango/Desktop/Merged/"  # 输出文件夹路径 (请修改这里)
 
 def merge_videos():
     video_list = [
@@ -118,9 +118,71 @@ def merge_videos():
     video_list = [os.path.join(source_dir, video) for video in video_list]
     ffmpeg_merge(video_list, f'{output_dir}/2025 AMC 12A.mp4')
 
+def merge_multi_videos():
+    video_list = {
+        '2020_l1_01-24': [
+            'p01 2020年袋鼠数学L1视频讲解1-10.mp4',
+            'p02 2020年袋鼠数学L1视频讲解11-12-13.mp4',
+            'p03 2020年袋鼠数学L1视频讲解14-15.mp4',
+            'p04 2020年袋鼠数学L1视频讲解16-17.mp4',
+            'p05 2020年袋鼠数学L1视频讲解18-19-20.mp4',
+            'p06 2020年袋鼠数学L1视频讲解21-22-23-24.mp4',
+        ],
+        '2021_l1_01-24': [
+            'p07 2021年袋鼠数学L1视频讲解1-4.mp4',
+            'p08 2021年袋鼠数学L1视频讲解5-6-7.mp4',
+            'p09 2021年袋鼠数学L1视频讲解8-9-10.mp4',
+            'p10 2021年袋鼠数学L1视频讲解11-12.mp4',
+            'p11 2021年袋鼠数学L1视频讲解13-14-15.mp4',
+            'p12 2021年袋鼠数学L1视频讲解16-17-18.mp4',
+            'p13 2021年袋鼠数学L1视频讲解19-20.mp4',
+            'p14 2021年袋鼠数学L1视频讲解21-22.mp4',
+            'p15 2021年袋鼠数学L1视频讲解23-24.mp4',
+        ],
+        '2020_l2_01-24': [
+            'p16 2020年L2 1-6.mp4',
+            'p17 2020年L2  7-8-9.mp4',
+            'p18 2020年L2 11-12-13-14.mp4',
+            'p19 2020年L2  15-16-17-18.mp4',
+            'p20 2020年L2  19-20-21-22.mp4',
+            'p21 2020年L2  23-24.mp4',
+        ],
+        # '2021_l2_01-17': [
+        #     'p22 2021年L2  1-2-3-4-5.mp4'
+        #     'p23 2021年L2  6-7.mp4'
+        #     'p24 2021年L2   8.mp4'
+        #     'p25 2021年L2  9-10.mp4'
+        #     'p26 2021年L2  11-12-13.mp4'
+        #     'p27 2021年L2  14-15.mp4'
+        #     'p28 2021年L2  16-17.mp4'
+        # ],
+        # '2021_l3_01-06': [
+        #     'p29 2021年L3-1.mp4',
+        #     'p30 2021年L3-2和3.mp4',
+        #     'p31 2021年L3-4-5-6.mp4',
+        # ],
+        # '2021_l4_01-12': [
+        #     'p32 2021年袋鼠数学L4 1-4.mp4',
+        #     'p33 2021年袋鼠数学L4 5-8.mp4',
+        #     'p34 2021年袋鼠数学L4 9-12.mp4',
+        # ],
+        # '2020_l5_01-19': [
+        #     'p35 2020年袋鼠数学L5   1-8.mp4',
+        #     'p36 2020年袋鼠数学L5   9-12.mp4',
+        #     'p37 2020年袋鼠数学L5  13-19.mp4',
+        # ],
+    }
+
+    for name, videos in video_list.items():
+        video_list = [os.path.join(source_dir, video) for video in videos]
+        ffmpeg_merge(video_list, f'{output_dir}/{name}.mp4')
+
 if __name__ == "__main__":
     # 简单的路径检查
     # merge_amc_videos(source_dir, output_dir)
 
     # 合并文件夹中的单个视频
-    merge_videos()
+    # merge_videos()
+
+    # 合并文件夹中的多个视频
+    merge_multi_videos()
