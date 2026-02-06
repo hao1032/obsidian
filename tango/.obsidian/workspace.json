@@ -47,8 +47,7 @@
               "title": "工业 CAM 软件模块机构"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -218,7 +217,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "7d3e94c4defaf985",
+  "active": "752a119c934c46ad",
   "lastOpenFiles": [
     "company/工业 CAM 软件模块机构.md",
     "company/工作日报.md",
