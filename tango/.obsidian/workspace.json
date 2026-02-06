@@ -22,6 +22,18 @@
             }
           },
           {
+            "id": "7d3e94c4defaf985",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.11.7"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.11.7"
+            }
+          },
+          {
             "id": "2956c8b135c33ae7",
             "type": "leaf",
             "state": {
@@ -35,7 +47,8 @@
               "title": "工业 CAM 软件模块机构"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -205,12 +218,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "752a119c934c46ad",
+  "active": "7d3e94c4defaf985",
   "lastOpenFiles": [
     "company/工业 CAM 软件模块机构.md",
+    "company/工作日报.md",
     "temp/使用的软件.md",
     "company/clsf 文件命令.md",
-    "company/工作日报.md",
     "temp/充电接口.md",
     "clash.md",
     "Todo.md",
