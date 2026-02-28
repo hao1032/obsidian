@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "company/clsf 文件命令.md",
+                "file": "company/工作日报.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "clsf 文件命令"
+              "title": "工作日报"
             }
           },
           {
@@ -219,10 +219,10 @@
   },
   "active": "752a119c934c46ad",
   "lastOpenFiles": [
+    "company/clsf 文件命令.md",
     "company/工作日报.md",
     "company/工业 CAM 软件模块机构.md",
     "temp/使用的软件.md",
-    "company/clsf 文件命令.md",
     "temp/充电接口.md",
     "clash.md",
     "Todo.md",
