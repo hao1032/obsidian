@@ -3,4 +3,7 @@ psutil
 pypdf==6.4.0
 numpy
 qrcode==8.2
-PyMuPDF==-1.26.6
+PyMuPDF
+yt-dlp
+moviepy
+
