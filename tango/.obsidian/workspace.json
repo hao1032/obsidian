@@ -22,6 +22,18 @@
             }
           },
           {
+            "id": "19afd34b828d7ff6",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.12.4"
+              },
+              "icon": "lucide-book-up",
+              "title": "版本说明 1.12.4"
+            }
+          },
+          {
             "id": "7d3e94c4defaf985",
             "type": "leaf",
             "state": {
@@ -70,7 +82,7 @@
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
-              "title": "Files"
+              "title": "文件列表"
             }
           },
           {
@@ -211,19 +223,19 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:Open quick switcher": false,
-      "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "bases:Create new base": false,
+      "switcher:打开快速切换": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false,
       "obsidian-git:Open Git source control": false
     }
   },
   "active": "752a119c934c46ad",
   "lastOpenFiles": [
+    "temp/使用的软件.md",
     "company/工作日报.md",
     "company/clsf 文件命令.md",
     "company/工业 CAM 软件模块机构.md",
-    "temp/使用的软件.md",
     "temp/充电接口.md",
     "clash.md",
     "Todo.md",
