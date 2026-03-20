@@ -25,12 +25,14 @@
             "id": "19afd34b828d7ff6",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.12.4"
+                "file": "company/工作日报.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-book-up",
-              "title": "版本说明 1.12.4"
+              "icon": "lucide-file",
+              "title": "工作日报"
             }
           },
           {
@@ -42,7 +44,7 @@
                 "currentVersion": "1.11.7"
               },
               "icon": "lucide-book-up",
-              "title": "Release Notes 1.11.7"
+              "title": "版本说明 1.11.7"
             }
           },
           {
@@ -59,7 +61,8 @@
               "title": "工业 CAM 软件模块机构"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -230,7 +233,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "752a119c934c46ad",
+  "active": "19afd34b828d7ff6",
   "lastOpenFiles": [
     "company/工作日报.md",
     "temp/使用的软件.md",
