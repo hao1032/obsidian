@@ -62,7 +62,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -233,7 +233,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "19afd34b828d7ff6",
+  "active": "7d3e94c4defaf985",
   "lastOpenFiles": [
     "company/工作日报.md",
     "temp/使用的软件.md",
