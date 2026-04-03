@@ -36,15 +36,15 @@
             }
           },
           {
-            "id": "7d3e94c4defaf985",
+            "id": "e7717f362e059402",
             "type": "leaf",
             "state": {
               "type": "release-notes",
               "state": {
-                "currentVersion": "1.11.7"
+                "currentVersion": "1.12.7"
               },
               "icon": "lucide-book-up",
-              "title": "版本说明 1.11.7"
+              "title": "版本说明 1.12.7"
             }
           },
           {
@@ -61,8 +61,7 @@
               "title": "工业 CAM 软件模块机构"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -233,7 +232,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "7d3e94c4defaf985",
+  "active": "752a119c934c46ad",
   "lastOpenFiles": [
     "company/工作日报.md",
     "temp/使用的软件.md",
