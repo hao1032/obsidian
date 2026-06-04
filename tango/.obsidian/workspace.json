@@ -22,15 +22,15 @@
             }
           },
           {
-            "id": "984b782e35a46795",
+            "id": "e7717f362e059402",
             "type": "leaf",
             "state": {
               "type": "release-notes",
               "state": {
-                "currentVersion": "1.11.4"
+                "currentVersion": "1.12.7"
               },
               "icon": "lucide-book-up",
-              "title": "Release Notes 1.11.4"
+              "title": "版本说明 1.12.7"
             }
           },
           {
@@ -219,7 +219,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 439.5
+    "width": 200,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {

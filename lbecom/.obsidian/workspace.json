@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "calendar"
             }
+          },
+          {
+            "id": "295cea246b3bd990",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "conflict-files-obsidian-git.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "conflict-files-obsidian-git"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -180,13 +195,14 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "c6ae3c075ba65f52",
+  "active": "295cea246b3bd990",
   "lastOpenFiles": [
+    "docs/calendar.md",
+    "conflict-files-obsidian-git.md",
     "internal/真题来源/UK-英国 BPhO.md",
     "internal/UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
     "internal/pan-serverless.md",
     "internal/lbecom 站点.md",
-    "docs/calendar.md",
     "internal/真题来源",
     "internal/资料完整度/袋鼠数学.md",
     "internal/资料完整度/未命名 1.base",

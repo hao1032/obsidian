@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "630a6988f569df53",
+        "id": "3749d88e3daa54e3",
         "type": "tabs",
         "children": [
           {
-            "id": "c075aff6c8448284",
+            "id": "789a5d97e49a6eb2",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "新标签页"
+              "type": "split-diff-view",
+              "state": {
+                "aFile": "lbecom/conflict-files-obsidian-git.md",
+                "bFile": "lbecom/conflict-files-obsidian-git.md",
+                "aRef": ""
+              },
+              "icon": "diff",
+              "title": "Diff: conflict-files-obsidian-git"
             }
           }
         ]
@@ -177,8 +181,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "b6d01d2b0185e807",
+  "active": "789a5d97e49a6eb2",
   "lastOpenFiles": [
+    "conflict-files-obsidian-git.md",
     "lbecom 站点.md",
     "attachments/Pasted image 20251104224700.png",
     "UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
@@ -186,7 +191,6 @@
     "attachments/Pasted image 20251106004457.png",
     "pan-serverless.md",
     "attachments",
-    "conflict-files-obsidian-git.md",
     "Pasted image 20251104224411.png",
     "未命名",
     "欢迎.md"
