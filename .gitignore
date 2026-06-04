@@ -7,6 +7,9 @@ serverless-lbepan/test_data.py
 # lbecom 网站数据
 lbecom/site/
 
+# Obsidian 工作区配置
+.obsidian/workspace.json
+
 .venv
 venv
 .idea
