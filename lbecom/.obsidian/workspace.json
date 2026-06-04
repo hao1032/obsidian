@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "internal/资料完整度/袋鼠数学.md",
+                "file": "docs/calendar.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "袋鼠数学"
+              "title": "calendar"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "internal/资料完整度/袋鼠数学.md",
+                "file": "docs/calendar.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "袋鼠数学 的大纲"
+              "title": "calendar 的大纲"
             }
           },
           {
@@ -162,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -180,13 +180,19 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "9b7b79f0892a52a9",
+  "active": "c6ae3c075ba65f52",
   "lastOpenFiles": [
-    "docs/calendar.md",
-    "internal/资料完整度/袋鼠数学.md",
-    "internal/资料完整度",
+    "internal/真题来源/UK-英国 BPhO.md",
+    "internal/UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
     "internal/pan-serverless.md",
     "internal/lbecom 站点.md",
+    "docs/calendar.md",
+    "internal/真题来源",
+    "internal/资料完整度/袋鼠数学.md",
+    "internal/资料完整度/未命名 1.base",
+    "internal/资料完整度/未命名.base",
+    "scripts/tt.txt",
+    "internal/资料完整度",
     "scripts/aa.json",
     "scripts/calendar_feishu_update.py",
     "docs/AMC/00 index.md",
@@ -204,11 +210,6 @@
     "docs/BPhO/01 JPC 英国物理测评(初级).md",
     "internal/竞赛时间.md",
     "main.py",
-    "libs/__pycache__/md_table.cpython-313.pyc",
-    "libs/__pycache__/llm.cpython-313.pyc",
-    "libs/__pycache__/llm.cpython-310.pyc",
-    "libs/llm.py",
-    "internal/UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
     "docs/assets/favicon.png",
     "assets/images/logo.png",
     "assets/images/favicon.png",
