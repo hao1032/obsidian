@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "630a6988f569df53",
+        "id": "4e52c92c9500d3e7",
         "type": "tabs",
         "children": [
           {
-            "id": "c075aff6c8448284",
+            "id": "cc1ad78a353aaa0f",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -166,6 +166,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:新建数据库": false,
       "obsidian-git:Open Git source control": false,
       "remotely-save:Remotely Save": false,
       "switcher:打开快速切换": false,
@@ -173,12 +174,12 @@
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": true,
       "templates:插入模板": false,
-      "command-palette:打开命令面板": false,
-      "bases:创建新数据库": false
+      "command-palette:打开命令面板": false
     }
   },
-  "active": "b6d01d2b0185e807",
+  "active": "cc1ad78a353aaa0f",
   "lastOpenFiles": [
+    "conflict-files-obsidian-git.md",
     "lbecom 站点.md",
     "attachments/Pasted image 20251104224700.png",
     "UK-英国 BPhO-British Physics Olympiad (英国物理奥林匹克).md",
@@ -186,7 +187,6 @@
     "attachments/Pasted image 20251106004457.png",
     "pan-serverless.md",
     "attachments",
-    "conflict-files-obsidian-git.md",
     "Pasted image 20251104224411.png",
     "未命名",
     "欢迎.md"

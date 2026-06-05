@@ -3,45 +3,52 @@ import re
 import subprocess
 from collections import defaultdict
 
+
 def ffmpeg_merge(video_list, output_path):
-    # 创建 ffmpeg 需要的临时列表文件 (file_list.txt)
-    # 格式: file 'filename.mp4'
-    source_folder = os.path.dirname(video_list[0])
-    list_txt_path = os.path.join(source_folder, "temp_concat_list.txt")
+    temp_dir = "temp_standardized"
+    os.makedirs(temp_dir, exist_ok=True)
 
+    standardized_files = []
+    list_txt_path = "inputs.txt"
+
+    print("--- 第一步：标准化转码 ---")
+    for i, video in enumerate(video_list):
+        temp_output = os.path.join(temp_dir, f"std_{i}.mp4")
+
+        # 统一参数：1080p, 30fps, H.264, AAC, YUV420P
+        # 这些参数如果不统一，concat 极易失败
+        cmd_std = [
+            "ffmpeg", "-i", video,
+            "-vf", "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2",
+            # 统一分辨率且填充黑边
+            "-r", "30",  # 统一帧率
+            "-c:v", "libx264",  # 统一编码器
+            "-pix_fmt", "yuv420p",  # 统一像素格式
+            "-c:a", "aac",  # 统一音频编码
+            "-ar", "44100",  # 统一音频采样率
+            "-y", temp_output
+        ]
+        print(f"正在处理: {video}...")
+        subprocess.run(cmd_std, check=True)
+        standardized_files.append(temp_output)
+
+    print("--- 第二步：生成合并列表 ---")
     with open(list_txt_path, "w", encoding="utf-8") as f:
-        for abs_path in video_list:
-            # 使用绝对路径防止出错，并转义单引号
-            # FFmpeg 列表文件格式要求路径被单引号包裹，且反斜杠需转义
-            safe_path = abs_path.replace("'", "'\\''")
-            f.write(f"file '{safe_path}'\n")
+        for file in standardized_files:
+            # 获取绝对路径，避免路径报错
+            abs_path = os.path.abspath(file).replace("\\", "/")
+            f.write(f"file '{abs_path}'\n")
 
-    # 构建 FFmpeg 命令
-    # -f concat: 使用拼接模式
-    # -safe 0: 允许使用绝对路径
-    # -c copy: 直接复制流，不重新编码（速度快，无损）
-    cmd = [
-        "ffmpeg",
-        "-f", "concat",
-        "-safe", "0",
+    print("--- 第三步：执行无损合并 ---")
+    cmd_merge = [
+        "ffmpeg", "-f", "concat", "-safe", "0",
         "-i", list_txt_path,
-        "-c", "copy",
-        "-y",  # 覆盖已存在文件
-        output_path
+        "-c", "copy",  # 因为已经标准化了，这里可以直接 copy，速度极快
+        "-y", output_path
     ]
+    subprocess.run(cmd_merge, check=True)
 
-    try:
-        # 调用系统中的 ffmpeg，屏蔽详细日志只显示错误
-        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
-        print(f"✅ 成功生成: {output_path}")
-    except subprocess.CalledProcessError as e:
-        print(f"❌ 生成 {output_path} 失败。FFmpeg 错误信息:")
-        print(e.stderr.decode())
-    finally:
-        # 删除临时列表文件
-        if os.path.exists(list_txt_path):
-            os.remove(list_txt_path)
-        print("--------------------------------------------------\n")
+    print(f"合并完成！输出文件：{output_path}")
 
 
 def merge_amc_videos(source_folder, output_folder):
@@ -120,57 +127,11 @@ def merge_videos():
 
 def merge_multi_videos():
     video_list = {
-        '2020_l1_01-24': [
-            'p01 2020年袋鼠数学L1视频讲解1-10.mp4',
-            'p02 2020年袋鼠数学L1视频讲解11-12-13.mp4',
-            'p03 2020年袋鼠数学L1视频讲解14-15.mp4',
-            'p04 2020年袋鼠数学L1视频讲解16-17.mp4',
-            'p05 2020年袋鼠数学L1视频讲解18-19-20.mp4',
-            'p06 2020年袋鼠数学L1视频讲解21-22-23-24.mp4',
+        '2019_F_01-30': [
+            '袋鼠数学2019F(1-10).mp4',
+            '袋鼠数学2019F(11-20).mp4',
+            '袋鼠数学2019F(21-30).mp4'
         ],
-        '2021_l1_01-24': [
-            'p07 2021年袋鼠数学L1视频讲解1-4.mp4',
-            'p08 2021年袋鼠数学L1视频讲解5-6-7.mp4',
-            'p09 2021年袋鼠数学L1视频讲解8-9-10.mp4',
-            'p10 2021年袋鼠数学L1视频讲解11-12.mp4',
-            'p11 2021年袋鼠数学L1视频讲解13-14-15.mp4',
-            'p12 2021年袋鼠数学L1视频讲解16-17-18.mp4',
-            'p13 2021年袋鼠数学L1视频讲解19-20.mp4',
-            'p14 2021年袋鼠数学L1视频讲解21-22.mp4',
-            'p15 2021年袋鼠数学L1视频讲解23-24.mp4',
-        ],
-        '2020_l2_01-24': [
-            'p16 2020年L2 1-6.mp4',
-            'p17 2020年L2  7-8-9.mp4',
-            'p18 2020年L2 11-12-13-14.mp4',
-            'p19 2020年L2  15-16-17-18.mp4',
-            'p20 2020年L2  19-20-21-22.mp4',
-            'p21 2020年L2  23-24.mp4',
-        ],
-        # '2021_l2_01-17': [
-        #     'p22 2021年L2  1-2-3-4-5.mp4'
-        #     'p23 2021年L2  6-7.mp4'
-        #     'p24 2021年L2   8.mp4'
-        #     'p25 2021年L2  9-10.mp4'
-        #     'p26 2021年L2  11-12-13.mp4'
-        #     'p27 2021年L2  14-15.mp4'
-        #     'p28 2021年L2  16-17.mp4'
-        # ],
-        # '2021_l3_01-06': [
-        #     'p29 2021年L3-1.mp4',
-        #     'p30 2021年L3-2和3.mp4',
-        #     'p31 2021年L3-4-5-6.mp4',
-        # ],
-        # '2021_l4_01-12': [
-        #     'p32 2021年袋鼠数学L4 1-4.mp4',
-        #     'p33 2021年袋鼠数学L4 5-8.mp4',
-        #     'p34 2021年袋鼠数学L4 9-12.mp4',
-        # ],
-        # '2020_l5_01-19': [
-        #     'p35 2020年袋鼠数学L5   1-8.mp4',
-        #     'p36 2020年袋鼠数学L5   9-12.mp4',
-        #     'p37 2020年袋鼠数学L5  13-19.mp4',
-        # ],
     }
 
     for name, videos in video_list.items():

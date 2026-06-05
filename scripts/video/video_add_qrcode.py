@@ -23,8 +23,8 @@ from rich.progress import (
 from rich.console import Console
 
 
-INPUT_FOLDER = "/Users/tango/Desktop/AMC 视频/合并后"
-OUTPUT_FOLDER = "/Users/tango/Desktop/AMC 视频/已添加二维码"
+INPUT_FOLDER = "/Users/tango/Desktop/袋鼠数学视频/原始视频"
+OUTPUT_FOLDER = "/Users/tango/Desktop/袋鼠数学视频/已添加二维码"
 
 FONT_PATH = "/System/Library/Fonts/PingFang.ttc"
 QR_DATA = "http://weixin.qq.com/r/mp/10z54bXEIuhdrfGC9xnF"
@@ -39,8 +39,8 @@ CHECK_STEP = 5
 BLANK_STD_THRESHOLD = 5
 BLANK_MEAN_THRESHOLD = 200
 
-MAX_WORKERS = 3
-PER_VIDEO_TIMEOUT = 1800
+MAX_WORKERS = 5
+PER_VIDEO_TIMEOUT = 88000
 
 @dataclass
 class TaskProgress:
@@ -201,17 +201,10 @@ def process_single_video(video_path, output_path, overlay_path, queue):
     except Exception as e:
         queue.put(TaskProgress(name, "error", 0, str(e), time.time() - start))
 
-def process_folder(input_dir, output_dir):
-    os.makedirs(output_dir, exist_ok=True)
-
+def process_videos(videos):
     overlay = create_qr_overlay(QR_DATA, QR_TEXT, QR_WIDTH, FONT_PATH)
     overlay_path = "temp_overlay.png"
     overlay.save(overlay_path)
-
-    files = [
-        f for f in os.listdir(input_dir)
-        if f.lower().endswith((".mp4", ".mov")) and not os.path.exists(os.path.join(output_dir, f))
-    ]
 
     manager = Manager()
     queue = manager.Queue()
@@ -219,37 +212,39 @@ def process_folder(input_dir, output_dir):
     with create_progress() as progress:
         total_task = progress.add_task(
             "[bold green]总进度",
-            total=len(files),
+            total=len(videos),
             video="ALL",
             stage="",
             msg=""
         )
 
         task_map = {}
-        for f in files:
+        for source_path, target_path in videos:
+            video_name = os.path.basename(source_path)
+            os.makedirs(os.path.dirname(target_path), exist_ok=True)
             task_id = progress.add_task(
-                f,
+                video_name,
                 total=100,
-                video=f[:30],
+                video=video_name[:30],
                 stage="等待",
                 msg=""
             )
-            task_map[f] = task_id
+            task_map[video_name] = task_id
 
         with ProcessPoolExecutor(MAX_WORKERS) as pool:
             futures = [
                 pool.submit(
                     process_single_video,
-                    os.path.join(input_dir, f),
-                    os.path.join(output_dir, f),
+                    source_path,
+                    target_path,
                     overlay_path,
                     queue
                 )
-                for f in files
+                for source_path, target_path in videos
             ]
 
             finished = 0
-            while finished < len(files):
+            while finished < len(videos):
                 msg = queue.get()
 
                 task_id = task_map.get(msg.video)
@@ -275,8 +270,18 @@ def process_folder(input_dir, output_dir):
 
 
 if __name__ == "__main__":
-    for name in ["AMC8专题", "AMC10", "AMC10专题", "AMC12"]:
-        process_folder(
-            f"{INPUT_FOLDER}/{name}",
-            f"{OUTPUT_FOLDER}/{name}"
-        )
+    videos = []
+    for name in [
+        '等级_A_L1_视频',
+        '等级_B_L2_视频',
+        '等级_C_L3_视频',
+        '等级_D_L4_视频',
+        '等级_E_L5_视频',
+        '等级_F_L6_视频'
+    ]:
+        for video_name in os.listdir(f"{INPUT_FOLDER}/{name}"):
+            source_path = f"{INPUT_FOLDER}/{name}/{video_name}"
+            target_path = f"{OUTPUT_FOLDER}/{name}/{video_name}"
+            if not os.path.exists(target_path):
+                videos.append([source_path, target_path])
+    process_videos(videos)

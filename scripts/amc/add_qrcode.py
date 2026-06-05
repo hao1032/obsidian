@@ -7,10 +7,10 @@ import numpy as np
 from io import BytesIO
 
 # 配置
-INPUT_DIR = r'/Volumes/share/share/paper/00-original/US-美国/AMC/'
-OUTPUT_DIR = r'/Users/tango/Downloads/AMC/'
-# QR_IMAGE_URL = r'https://mp.weixin.qq.com/mp/homepage?__biz=MzA3NzUxNDQ5Nw==&hid=5'  # BPhO 地址
-QR_IMAGE_URL = r'https://mp.weixin.qq.com/mp/homepage?__biz=MzA3NzUxNDQ5Nw==&hid=3'  # AMC 地址
+INPUT_DIR = r'/Users/tango/Desktop/2026'
+OUTPUT_DIR = r'/Users/tango/Desktop/2026-qr'
+QR_IMAGE_URL = r'https://mp.weixin.qq.com/mp/homepage?__biz=MzA3NzUxNDQ5Nw==&hid=5'  # BPhO 地址
+# QR_IMAGE_URL = r'https://mp.weixin.qq.com/mp/homepage?__biz=MzA3NzUxNDQ5Nw==&hid=3'  # AMC 地址
 PAGE_INTERVAL = 3
 QR_INSERT_SIZE = 60  # 插入到PDF页面时的宽高，pt单位，1pt=1/72英寸
 MARGIN = 20

@@ -8,7 +8,7 @@ folder_url = {
 }
 
 video_urls = [
-    'https://www.bilibili.com/video/BV1Xa4y167Yv?spm_id_from=333.788.videopod.episodes&vd_source=c0537c5a5377f2ba272405e35c1565c5'
+    'https://space.bilibili.com/509173730/lists/2535685?type=season'
 ]
 
 ydl_opts = {
