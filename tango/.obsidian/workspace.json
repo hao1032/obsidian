@@ -13,15 +13,28 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "company/工作日报.md",
+                "file": "temp/使用的软件.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "工作日报"
+              "title": "使用的软件"
+            }
+          },
+          {
+            "id": "343eeb028ad81349",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.13.4"
+              },
+              "icon": "lucide-book-up",
+              "title": "版本说明 1.13.4"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -41,7 +54,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
               "title": "文件列表"
@@ -191,10 +206,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "2956c8b135c33ae7",
+  "active": "343eeb028ad81349",
   "lastOpenFiles": [
-    "company/clsf 文件命令.md",
     "company/工作日报.md",
+    "company/clsf 文件命令.md",
     "temp/使用的软件.md",
     "rs-test-folder-oIN1asdWc6bRkk71Hy0AE",
     "rs-test-folder-kj5Qc-1kHYTCaYlXyC8LY",
